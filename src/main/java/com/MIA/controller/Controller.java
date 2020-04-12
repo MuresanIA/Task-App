@@ -14,7 +14,10 @@ import javax.persistence.Persistence;
 
 
 public class Controller {
-
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Button btnRegister;
     @FXML
     private MenuItem menuFileClose;
     @FXML
@@ -38,7 +41,7 @@ public class Controller {
     @FXML
     private Label lblInformationRegister;
     @FXML
-    private MenuItem mnutemLogin;
+    private MenuItem menuItemLogin;
 
     @FXML
     private MenuItem mnuItemRegister;
@@ -137,11 +140,11 @@ public class Controller {
     public void toggleLoginTab(ActionEvent actionEvent) {
         if (!loginLayout.isVisible()) {
             loginTab = createLoginTab();
-            mnutemLogin.setText("Hide Login");
+            menuItemLogin.setText("Hide Login");
             tabPane.getTabs().add(loginTab);
         } else {
             loginLayout.setVisible(false);
-            mnutemLogin.setText("Show Login");
+            menuItemLogin.setText("Show Login");
             tabPane.getTabs().remove(loginTab);
         }
     }
@@ -161,8 +164,7 @@ public class Controller {
             registerTab = createRegisterTab();
             mnuItemRegister.setText("Hide Register");
             tabPane.getTabs().add(registerTab);
-            tabPane.getTabs().add(registerTab);
-            tabPane.getTabs().add(registerTab);
+
         } else {
             registerLayout.setVisible(false);
             mnuItemRegister.setText("Show Register");
