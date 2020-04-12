@@ -37,6 +37,11 @@ public class Controller {
     private Label lblInformationLogin;
     @FXML
     private Label lblInformationRegister;
+    @FXML
+    private MenuItem mnutemLogin;
+
+    @FXML
+    private MenuItem mnuItemRegister;
 
     @FXML
     private TabPane tabPane;
@@ -49,6 +54,9 @@ public class Controller {
     private UserRepository userRepository;
 
     private boolean isConnectionSuccessful = true;
+
+    private Tab loginTab;
+    private Tab registerTab;
 
     public void initialize() {
         try {
@@ -126,9 +134,15 @@ public class Controller {
         Platform.exit();
     }
 
-    public void showLoginTab(ActionEvent actionEvent) {
+    public void toggleLoginTab(ActionEvent actionEvent) {
         if (!loginLayout.isVisible()) {
-            tabPane.getTabs().add(createLoginTab());
+            loginTab = createLoginTab();
+            mnutemLogin.setText("Hide Login");
+            tabPane.getTabs().add(loginTab);
+        } else {
+            loginLayout.setVisible(false);
+            mnutemLogin.setText("Show Login");
+            tabPane.getTabs().remove(loginTab);
         }
     }
 
@@ -142,9 +156,17 @@ public class Controller {
         return loginTab;
     }
 
-    public void showRegisterTab(ActionEvent actionEvent) {
+    public void toggleRegisterTab(ActionEvent actionEvent) {
         if (!registerLayout.isVisible()) {
-            tabPane.getTabs().add(createRegisterTab());
+            registerTab = createRegisterTab();
+            mnuItemRegister.setText("Hide Register");
+            tabPane.getTabs().add(registerTab);
+            tabPane.getTabs().add(registerTab);
+            tabPane.getTabs().add(registerTab);
+        } else {
+            registerLayout.setVisible(false);
+            mnuItemRegister.setText("Show Register");
+            tabPane.getTabs().remove(registerTab);
         }
     }
 
