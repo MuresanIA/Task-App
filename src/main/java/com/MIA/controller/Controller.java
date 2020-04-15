@@ -84,26 +84,42 @@ public class Controller {
     private void registerUser(ActionEvent actionEvent) {
         clearInfoText();
 
-        if (pwdFieldRegister.getText().equals(pwdFieldConfirmRegister.getText())) {
-            if (!userRepository.usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
-                User user = new User();
-                user.setUsername(txtFieldUsernameRegister.getText());
-                user.setPassword(pwdFieldRegister.getText());
-                userRepository.save(user);
+        if (txtFieldUsernameRegister.getText().equals("")) {
+            updateInfoText("Username's empty. Please fill in!");
+            return;
+        }
+        if (pwdFieldRegister.getText().equals("")) {
+            updateInfoText("Password field is empty. Please fill in!");
+            return;
+        }
+        if (pwdFieldConfirmRegister.getText().equals("")) {
+            updateInfoText("Password field is empty. Please fill in!");
+            return;
+        }
 
-                if (userRepository.usernameAlreadyInDB(user.getUsername())) {
-                    txtFieldUsernameRegister.setText("");
-                    pwdFieldRegister.setText("");
-                    pwdFieldConfirmRegister.setText("");
-                    updateInfoText("Username registered successfully!");
-                } else {
-                    updateInfoText("Registration Failed!");
-                }
-            } else {
-                updateInfoText("Username's already taken!");
-            }
-        } else {
+        if (userRepository.usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
+            updateInfoText("Username's already taken!");
+            return;
+        }
+
+        if (!pwdFieldRegister.getText().equals(pwdFieldConfirmRegister.getText())) {
             updateInfoText("Passwords don't match!");
+            return;
+        }
+
+        User user = new User();
+        user.setUsername(txtFieldUsernameRegister.getText());
+        user.setPassword(pwdFieldRegister.getText());
+
+        userRepository.save(user);
+
+        if (userRepository.usernameAlreadyInDB(user.getUsername())) {
+            txtFieldUsernameRegister.setText("");
+            pwdFieldRegister.setText("");
+            pwdFieldConfirmRegister.setText("");
+            updateInfoText("Username registered successfully!");
+        } else {
+            updateInfoText("Registration Failed!");
         }
     }
 
