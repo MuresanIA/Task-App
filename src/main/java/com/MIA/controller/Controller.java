@@ -92,6 +92,9 @@ public class Controller {
                 userRepository.save(user);
 
                 if (userRepository.usernameAlreadyInDB(user.getUsername())) {
+                    txtFieldUsernameRegister.setText("");
+                    pwdFieldRegister.setText("");
+                    pwdFieldConfirmRegister.setText("");
                     updateInfoText("Username registered successfully!");
                 } else {
                     updateInfoText("Registration Failed!");
