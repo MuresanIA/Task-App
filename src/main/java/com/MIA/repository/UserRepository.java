@@ -35,7 +35,6 @@ public class UserRepository implements CrudRepository<User, Integer> {
     }
 
     public User findById(Integer id) {
-        /* TODO : Add Try catch */
         try {
             User user = entityManager.find(User.class, id);
             return user;
@@ -50,9 +49,9 @@ public class UserRepository implements CrudRepository<User, Integer> {
     }
 
     public User findByUsername(String username) {
-//        throw new NotImplementedException();
         try {
-            List<User> usersList = entityManager.createQuery("SELECT u  FROM User u WHERE u.username = :username")
+            List<User> usersList = entityManager
+                    .createQuery("SELECT u  FROM User u WHERE u.username = :username")
                     .setParameter("username", username)
                     .getResultList();
 
