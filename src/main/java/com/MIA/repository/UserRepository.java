@@ -37,6 +37,7 @@ public class UserRepository implements CrudRepository<User, Integer> {
     public User findById(Integer id) {
         try {
             User user = entityManager.find(User.class, id);
+            entityManager.refresh(user);
             return user;
         } catch (Exception e) {
             System.out.println("Something went wrong...");
@@ -56,7 +57,9 @@ public class UserRepository implements CrudRepository<User, Integer> {
                     .getResultList();
 
             if (usersList.size() > 0) {
-                return usersList.get(0);
+                User user = usersList.get(0);
+                entityManager.refresh(user);
+                return user;
             }
             return null;
         } catch (Exception e) {

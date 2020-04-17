@@ -6,9 +6,11 @@ import com.MIA.repository.TaskRepository;
 import com.MIA.repository.UserRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,8 +19,11 @@ import java.util.Set;
 
 
 public class Controller {
+
     @FXML
-    private AnchorPane todoLayout;
+    private Button btnAddTodo;
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private Button btnLogin;
     @FXML
@@ -59,6 +64,8 @@ public class Controller {
     @FXML
     private AnchorPane loginLayout;
 
+    private User loginUser;
+
     private UserRepository userRepository;
 
     private TaskRepository taskRepository;
@@ -68,6 +75,9 @@ public class Controller {
     private Tab todoTab;
     private Tab loginTab;
     private Tab registerTab;
+
+    public Controller() {
+    }
 
     public void initialize() {
         try {
@@ -132,11 +142,7 @@ public class Controller {
             pwdFieldConfirmRegister.setText("");
             updateInfoText("Username registered successfully!");
 
-            Task task = new Task();
-            task.setDescription("Get good.");
-            task.setInProgress(true);
-            task.setUser(user);
-            taskRepository.save(task);
+
         } else {
             updateInfoText("Registration Failed!");
         }
@@ -166,24 +172,41 @@ public class Controller {
 
         lblInformationLogin.setText("Login successful");
         toggleTodoTab();
+        populateTodoLayout(user.getTasks());
+        loginUser = user; // save the login user
+    }
 
+    public void populateTodoLayout(Set<Task> tasks) {
+        scrollPane.setContent(null);
+        VBox vbox = new VBox();
+        int i = 1;
+        for (Task task : tasks) {
+            vbox.getChildren().add(new Label(i + ". " + task.getDescription()));
+            i++;
+
+        }
+        Button addTodoButton = new Button("Add Todo");
+        final TextField textField = new TextField();
+        addTodoButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                addTodo(event, textField.getText());
+            }
+        });
+        vbox.getChildren().add(addTodoButton);
+        vbox.getChildren().add(textField);
+        scrollPane.setContent(vbox);
     }
 
     public void toggleTodoTab() {
-        if (!todoLayout.isVisible()) {
-            todoTab = createTodoTab();
-            tabPane.getTabs().add(todoTab);
-        } else {
-            todoLayout.setVisible(false);
-            tabPane.getTabs().remove(todoTab);
-        }
+        todoTab = createTodoTab();
+        tabPane.getTabs().add(todoTab);
     }
 
     public Tab createTodoTab() {
         Tab todoTab = new Tab();
         todoTab.setText("TODOTAB");
-        todoTab.setContent(todoLayout);
-        todoLayout.setVisible(true);
+        scrollPane.setVisible(true);
+        todoTab.setContent(scrollPane);
 
         return todoTab;
     }
@@ -249,5 +272,16 @@ public class Controller {
         registerLayout.setVisible(true);
 
         return registerTab;
+    }
+
+    public void addTodo(ActionEvent actionEvent, String description) {
+        Task task = new Task();
+        task.setDescription(description);
+        task.setInProgress(true);
+        task.setUser(loginUser);
+        taskRepository.save(task);
+
+        User user = userRepository.findByUsername(loginUser.getUsername());
+        populateTodoLayout(user.getTasks());
     }
 }
