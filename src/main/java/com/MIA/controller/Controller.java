@@ -1,6 +1,8 @@
 package com.MIA.controller;
 
+import com.MIA.model.Task;
 import com.MIA.model.User;
+import com.MIA.repository.TaskRepository;
 import com.MIA.repository.UserRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -11,9 +13,12 @@ import javafx.scene.layout.AnchorPane;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Set;
 
 
 public class Controller {
+    @FXML
+    private AnchorPane todoLayout;
     @FXML
     private Button btnLogin;
     @FXML
@@ -56,8 +61,11 @@ public class Controller {
 
     private UserRepository userRepository;
 
+    private TaskRepository taskRepository;
+
     private boolean isConnectionSuccessful = true;
 
+    private Tab todoTab;
     private Tab loginTab;
     private Tab registerTab;
 
@@ -67,6 +75,7 @@ public class Controller {
 
         } catch (Exception ex) {
             System.out.println("Connection is not allowed");
+            System.out.println(ex.toString());
             isConnectionSuccessful = false;
         }
     }
@@ -77,6 +86,7 @@ public class Controller {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         userRepository = new UserRepository(entityManager);
+        taskRepository = new TaskRepository(entityManager);
     }
 
 
@@ -99,6 +109,9 @@ public class Controller {
 
         if (userRepository.usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
             updateInfoText("Username's already taken!");
+
+            User user = userRepository.findByUsername(txtFieldUsernameRegister.getText());
+            Set<Task> tasks = user.getTasks();
             return;
         }
 
@@ -118,6 +131,12 @@ public class Controller {
             pwdFieldRegister.setText("");
             pwdFieldConfirmRegister.setText("");
             updateInfoText("Username registered successfully!");
+
+            Task task = new Task();
+            task.setDescription("Get good.");
+            task.setInProgress(true);
+            task.setUser(user);
+            taskRepository.save(task);
         } else {
             updateInfoText("Registration Failed!");
         }
@@ -134,7 +153,39 @@ public class Controller {
 
     @FXML
     private void loginUser(ActionEvent actionEvent) {
+        User user = userRepository.findByUsername(txtFieldUsernameLogin.getText());
+        if (user == null) {
+            lblInformationLogin.setText("Invalid username!");
+            return;
+        }
+        if (!user.getPassword().equals(pwdFieldLogin.getText())) {
+            lblInformationLogin.setText("Wrong password!");
+            return;
+        }
 
+
+        lblInformationLogin.setText("Login successful");
+        toggleTodoTab();
+
+    }
+
+    public void toggleTodoTab() {
+        if (!todoLayout.isVisible()) {
+            todoTab = createTodoTab();
+            tabPane.getTabs().add(todoTab);
+        } else {
+            todoLayout.setVisible(false);
+            tabPane.getTabs().remove(todoTab);
+        }
+    }
+
+    public Tab createTodoTab() {
+        Tab todoTab = new Tab();
+        todoTab.setText("TODOTAB");
+        todoTab.setContent(todoLayout);
+        todoLayout.setVisible(true);
+
+        return todoTab;
     }
 
 

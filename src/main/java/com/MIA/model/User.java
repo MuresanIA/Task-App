@@ -1,6 +1,9 @@
 package com.MIA.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -14,6 +17,9 @@ public class User {
     private int id;
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Task> tasks;
 
 
     public User() {
@@ -41,6 +47,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 }
 
