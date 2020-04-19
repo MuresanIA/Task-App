@@ -19,6 +19,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @OrderBy("created_at ASC") // pune To Do-urile in ordine ASC sau DESC in functie de TIMESTAMP-ul din phpAdmin SQL -> daca aleg DESC
     private List<Task> tasks;
 
 

@@ -180,11 +180,11 @@ public class Controller {
         scrollPane.setContent(null);
         VBox vbox = new VBox();
         int i = 1;
-        Collections.sort(tasks, new Comparator<Task>() {
-            public int compare(Task o1, Task o2) {
-                return o1.getCreatedAt().compareTo(o2.getCreatedAt());
-            }
-        });
+//        Collections.sort(tasks, new Comparator<Task>() {
+//            public int compare(Task o1, Task o2) {
+//                return o1.getCreatedAt().compareTo(o2.getCreatedAt());
+//            }
+//        }); Is anulate deoarece am folosit @OrderBy("created_at ASC") in User!
         for (Task task : tasks) {
             vbox.getChildren().add(new Label(i + ". " + task.getDescription()));
             i++;
