@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import utils.Caesar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -133,7 +134,7 @@ public class Controller {
 
         User user = new User();
         user.setUsername(txtFieldUsernameRegister.getText());
-        user.setPassword(pwdFieldRegister.getText());
+        user.setPassword(Caesar.encrypt(pwdFieldRegister.getText(), 3, 3)); // encrypting the password :)
 
         userRepository.save(user);
 
@@ -165,7 +166,7 @@ public class Controller {
             lblInformationLogin.setText("Invalid username!");
             return;
         }
-        if (!user.getPassword().equals(pwdFieldLogin.getText())) {
+        if (!Caesar.encrypt(user.getPassword(), 23, 7).equals(pwdFieldLogin.getText())) {
             lblInformationLogin.setText("Wrong password!");
             return;
         }
@@ -223,6 +224,7 @@ public class Controller {
 
         return todoTab;
     }
+// encrypt
 
 
     public void showPassword(ActionEvent actionEvent) {
@@ -285,6 +287,10 @@ public class Controller {
         registerLayout.setVisible(true);
 
         return registerTab;
+    }
+
+    public void addTaskToUser() {
+
     }
 
     public void addTodo(ActionEvent actionEvent, String description) {
