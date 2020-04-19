@@ -15,7 +15,8 @@ import javafx.scene.layout.VBox;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 
 public class Controller {
@@ -178,7 +179,7 @@ public class Controller {
 
     public void populateTodoLayout(List<Task> tasks) {
         scrollPane.setContent(null);
-        VBox vbox = new VBox();
+        final VBox vbox = new VBox();
         int i = 1;
 //        Collections.sort(tasks, new Comparator<Task>() {
 //            public int compare(Task o1, Task o2) {
@@ -190,17 +191,22 @@ public class Controller {
             i++;
 
         }
-
+        final Label label = new Label();
+        label.setText("Please fill in a To Do :)");
         Button addTodoButton = new Button("Add To Do");
         final TextField textField = new TextField();
         addTodoButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                addTodo(event, textField.getText());
+                if (textField.getText().equals("")) {
+                    if (!vbox.getChildren().contains(label))
+                        vbox.getChildren().add(label); //Daca field-ul de To Do este empty atunci afiseaza "Empty field" iar daca nu adauga un todo!
+                } else {
+                    addTodo(event, textField.getText());
+                }
             }
         });
         vbox.getChildren().add(addTodoButton);
         vbox.getChildren().add(textField);
-
         scrollPane.setContent(vbox);
     }
 
@@ -282,7 +288,6 @@ public class Controller {
     }
 
     public void addTodo(ActionEvent actionEvent, String description) {
-
         Task task = new Task();
         task.setCreatedAt(new Date());
         task.setDescription(description);
