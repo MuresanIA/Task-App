@@ -1,6 +1,7 @@
 package com.MIA.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "task")
@@ -12,6 +13,8 @@ public class Task {
     @JoinColumn(name = "user_id")
     @ManyToOne
     private User user;
+    @Column(name = "created_at")
+    private Date createdAt;
     private String description;
     @Column(name = "in_progress")
     private boolean inProgress;
@@ -52,4 +55,11 @@ public class Task {
     }
 
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }

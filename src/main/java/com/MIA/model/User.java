@@ -19,7 +19,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<Task> tasks;
+    private List<Task> tasks;
 
 
     public User() {
@@ -49,11 +49,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 }

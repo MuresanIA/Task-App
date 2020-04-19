@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Set;
+import java.util.*;
 
 
 public class Controller {
@@ -121,7 +121,7 @@ public class Controller {
             updateInfoText("Username's already taken!");
 
             User user = userRepository.findByUsername(txtFieldUsernameRegister.getText());
-            Set<Task> tasks = user.getTasks();
+            List<Task> tasks = user.getTasks();
             return;
         }
 
@@ -176,16 +176,22 @@ public class Controller {
         loginUser = user; // save the login user
     }
 
-    public void populateTodoLayout(Set<Task> tasks) {
+    public void populateTodoLayout(List<Task> tasks) {
         scrollPane.setContent(null);
         VBox vbox = new VBox();
         int i = 1;
+        Collections.sort(tasks, new Comparator<Task>() {
+            public int compare(Task o1, Task o2) {
+                return o1.getCreatedAt().compareTo(o2.getCreatedAt());
+            }
+        });
         for (Task task : tasks) {
             vbox.getChildren().add(new Label(i + ". " + task.getDescription()));
             i++;
 
         }
-        Button addTodoButton = new Button("Add Todo");
+
+        Button addTodoButton = new Button("Add To Do");
         final TextField textField = new TextField();
         addTodoButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
@@ -194,6 +200,7 @@ public class Controller {
         });
         vbox.getChildren().add(addTodoButton);
         vbox.getChildren().add(textField);
+
         scrollPane.setContent(vbox);
     }
 
@@ -204,7 +211,7 @@ public class Controller {
 
     public Tab createTodoTab() {
         Tab todoTab = new Tab();
-        todoTab.setText("TODOTAB");
+        todoTab.setText("To Do");
         scrollPane.setVisible(true);
         todoTab.setContent(scrollPane);
 
@@ -275,7 +282,9 @@ public class Controller {
     }
 
     public void addTodo(ActionEvent actionEvent, String description) {
+
         Task task = new Task();
+        task.setCreatedAt(new Date());
         task.setDescription(description);
         task.setInProgress(true);
         task.setUser(loginUser);
