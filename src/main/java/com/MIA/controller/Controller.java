@@ -195,9 +195,9 @@ public class Controller {
 //        }); Is anulate deoarece am folosit @OrderBy("created_at ASC") in User!
         for (final Task task : tasks) {
             CheckBox checkBox = new CheckBox(i + ". " + task.getDescription());
-            if (task.isInProgress()){
+            if (task.isInProgress()) {
                 checkBox.setSelected(false);
-            }else {
+            } else {
                 checkBox.setSelected(true);
             }
             checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -208,10 +208,7 @@ public class Controller {
                     Media sound = new Media(ssound);
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
-                    checkBox.applyCss();
-
                 }
-
             });
             vbox.getChildren().add(checkBox);
             i++;
