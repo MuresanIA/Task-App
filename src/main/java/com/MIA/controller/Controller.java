@@ -5,17 +5,23 @@ import com.MIA.model.User;
 import com.MIA.repository.TaskRepository;
 import com.MIA.repository.UserRepository;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import utils.Caesar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.event.ChangeEvent;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
@@ -187,11 +193,31 @@ public class Controller {
 //                return o1.getCreatedAt().compareTo(o2.getCreatedAt());
 //            }
 //        }); Is anulate deoarece am folosit @OrderBy("created_at ASC") in User!
-        for (Task task : tasks) {
-            vbox.getChildren().add(new Label(i + ". " + task.getDescription()));
-            i++;
+        for (final Task task : tasks) {
+            CheckBox checkBox = new CheckBox(i + ". " + task.getDescription());
+            if (task.isInProgress()){
+                checkBox.setSelected(false);
+            }else {
+                checkBox.setSelected(true);
+            }
+            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    task.setInProgress(!newValue);
+                    taskRepository.save(task);
+                    String ssound = Paths.get("pencil.mp3").toUri().toString();
+                    Media sound = new Media(ssound);
+                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                    mediaPlayer.play();
+                    checkBox.applyCss();
 
+                }
+
+            });
+            vbox.getChildren().add(checkBox);
+            i++;
         }
+
+
         final Label label = new Label();
         label.setText("Please fill in a To Do :)");
         Button addTodoButton = new Button("Add To Do");
