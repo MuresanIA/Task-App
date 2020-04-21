@@ -213,7 +213,7 @@ public class Controller {
         final HBox hbox = new HBox();
         final Label label = new Label();
         label.getStyleClass().add("warning");
-        label.setText("Please fill in a To Do :)");
+        label.setText("No to do here :(");
         Button addTodoButton = new Button("Add To Do");
         final TextField textField = new TextField();
         addTodoButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -246,7 +246,7 @@ public class Controller {
 
         return todoTab;
     }
-// encrypt
+
 
 
     public void showPassword(ActionEvent actionEvent) {
@@ -311,9 +311,7 @@ public class Controller {
         return registerTab;
     }
 
-    public void addTaskToUser() {
 
-    }
 
     public void addTodo(ActionEvent actionEvent, String description) {
         Task task = new Task();
