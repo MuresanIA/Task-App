@@ -1,0 +1,25 @@
+.root{
+    -fx-font-size  : 9pt;
+    -fx-font-family: "Arial";
+    -fx-base       : #f2f2f2;
+    -fx-background : #f2f2f2;
+    -fx-focus-color: #f2f2f2;
+}
+#loginLayout{
+-fx-background-color: #f2f2f2;
+}
+#registerLayout{
+-fx-background-color: #f2f2f2;
+}
+.BorderPane{
+-fx-background-color: #f2f2f2;
+}
+
+.check-box:selected .text {
+    -fx-strikethrough: true;
+}
+
+.warning {
+    -fx-text-fill: red;
+    -fx-padding: 3 0 0 10;
+}

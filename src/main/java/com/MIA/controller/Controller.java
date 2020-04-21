@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -31,7 +32,7 @@ public class Controller {
     @FXML
     private Button btnAddTodo;
     @FXML
-    private ScrollPane scrollPane;
+    private VBox vBox;
     @FXML
     private Button btnLogin;
     @FXML
@@ -183,9 +184,9 @@ public class Controller {
         populateTodoLayout(user.getTasks());
         loginUser = user; // save the login user
     }
-
     public void populateTodoLayout(List<Task> tasks) {
-        scrollPane.setContent(null);
+        vBox.getChildren().clear();
+        final ScrollPane scrollPane1 = new ScrollPane();
         final VBox vbox = new VBox();
         int i = 1;
 //        Collections.sort(tasks, new Comparator<Task>() {
@@ -195,11 +196,7 @@ public class Controller {
 //        }); Is anulate deoarece am folosit @OrderBy("created_at ASC") in User!
         for (final Task task : tasks) {
             CheckBox checkBox = new CheckBox(i + ". " + task.getDescription());
-            if (task.isInProgress()) {
-                checkBox.setSelected(false);
-            } else {
-                checkBox.setSelected(true);
-            }
+            checkBox.setSelected(!task.isInProgress());
             checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                     task.setInProgress(!newValue);
@@ -213,25 +210,27 @@ public class Controller {
             vbox.getChildren().add(checkBox);
             i++;
         }
-
-
+        final HBox hbox = new HBox();
         final Label label = new Label();
+        label.getStyleClass().add("warning");
         label.setText("Please fill in a To Do :)");
         Button addTodoButton = new Button("Add To Do");
         final TextField textField = new TextField();
         addTodoButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if (textField.getText().equals("")) {
-                    if (!vbox.getChildren().contains(label))
-                        vbox.getChildren().add(label); //Daca field-ul de To Do este empty atunci afiseaza "Empty field" iar daca nu adauga un todo!
+                    if (!hbox.getChildren().contains(label))
+                        hbox.getChildren().add(label); //Daca field-ul de To Do este empty atunci afiseaza "Empty field" iar daca nu adauga un todo!
                 } else {
                     addTodo(event, textField.getText());
                 }
             }
         });
-        vbox.getChildren().add(addTodoButton);
-        vbox.getChildren().add(textField);
-        scrollPane.setContent(vbox);
+        hbox.getChildren().add(addTodoButton);
+        hbox.getChildren().add(textField);
+        vBox.getChildren().add(hbox);
+        scrollPane1.setContent(vbox);
+        vBox.getChildren().add(scrollPane1);
     }
 
     public void toggleTodoTab() {
@@ -242,8 +241,8 @@ public class Controller {
     public Tab createTodoTab() {
         Tab todoTab = new Tab();
         todoTab.setText("To Do");
-        scrollPane.setVisible(true);
-        todoTab.setContent(scrollPane);
+        vBox.setVisible(true);
+        todoTab.setContent(vBox);
 
         return todoTab;
     }
