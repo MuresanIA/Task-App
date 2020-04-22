@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="loginLayout" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.MIA.controller.LoginController">
+    <children>
+        <Button fx:id="btnLogin" layoutX="343.0" layoutY="172.0" mnemonicParsing="false" onAction="#loginUser"
+                text="Login"/>
+        <Button fx:id="btnPreviousScene" layoutX="250.0" layoutY="172.0" mnemonicParsing="false" onAction="#goBack"
+                text="Back"/>
+        <TextField fx:id="txtFieldUsernameLogin" layoutX="213.0" layoutY="69.0"/>
+        <Label fx:id="lblUsername" layoutX="144.0" layoutY="74.0" text="Username"/>
+        <Label layoutX="146.0" layoutY="124.0" text="Password"/>
+        <PasswordField fx:id="pwdFieldLogin" layoutX="213.0" layoutY="119.0"/>
+        <Button fx:id="btnShowPassword" layoutX="410.0" layoutY="119.0" mnemonicParsing="false"
+                onAction="#showPassword" text="Show"/>
+        <TextField fx:id="txtFieldPasswordShow" layoutX="213.0" layoutY="119.0" visible="false"/>
+        <Label fx:id="lblInformationLogin" layoutX="14.0" layoutY="241.0" prefHeight="21.0" prefWidth="624.0"/>
+    </children>
+</AnchorPane>

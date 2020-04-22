@@ -1,5 +1,6 @@
 package com.MIA.controller;
 
+import com.MIA.AppState;
 import com.MIA.model.Task;
 import com.MIA.model.User;
 import com.MIA.repository.TaskRepository;
@@ -16,12 +17,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import utils.Caesar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.event.ChangeEvent;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
@@ -30,50 +29,10 @@ import java.util.List;
 public class Controller {
 
     @FXML
-    private Button btnAddTodo;
-    @FXML
     private VBox vBox;
-    @FXML
-    private Button btnLogin;
-    @FXML
-    private Button btnRegister;
-    @FXML
-    private MenuItem menuFileClose;
-    @FXML
-    private Label lblUsername;
-    @FXML
-    private Button btnShowPassword;
-    @FXML
-    private TextField txtFieldPasswordShow;
-    @FXML
-    private TextField txtFieldUsernameRegister;
-    @FXML
-    private PasswordField pwdFieldRegister;
-    @FXML
-    private PasswordField pwdFieldConfirmRegister;
-    @FXML
-    private TextField txtFieldUsernameLogin;
-    @FXML
-    private PasswordField pwdFieldLogin;
-    @FXML
-    private Label lblInformationLogin;
-    @FXML
-    private Label lblInformationRegister;
-    @FXML
-    private MenuItem menuItemLogin;
-
-    @FXML
-    private MenuItem mnuItemRegister;
 
     @FXML
     private TabPane tabPane;
-
-    @FXML
-    private AnchorPane registerLayout;
-    @FXML
-    private AnchorPane loginLayout;
-
-    private User loginUser;
 
     private UserRepository userRepository;
 
@@ -82,15 +41,16 @@ public class Controller {
     private boolean isConnectionSuccessful = true;
 
     private Tab todoTab;
-    private Tab loginTab;
-    private Tab registerTab;
 
     public Controller() {
     }
 
+    @FXML
     public void initialize() {
         try {
             persistenceConnection();
+                    toggleTodoTab();
+        populateTodoLayout(AppState.getInstance().getLoggedInUser().getTasks());
 
         } catch (Exception ex) {
             System.out.println("Connection is not allowed");
@@ -101,89 +61,11 @@ public class Controller {
 
     private void persistenceConnection() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TODOFx");
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         userRepository = new UserRepository(entityManager);
         taskRepository = new TaskRepository(entityManager);
     }
 
-
-    @FXML
-    private void registerUser(ActionEvent actionEvent) {
-        clearInfoText();
-
-        if (txtFieldUsernameRegister.getText().equals("")) {
-            updateInfoText("Username's empty. Please fill in!");
-            return;
-        }
-        if (pwdFieldRegister.getText().equals("")) {
-            updateInfoText("Password field is empty. Please fill in!");
-            return;
-        }
-        if (pwdFieldConfirmRegister.getText().equals("")) {
-            updateInfoText("Password field is empty. Please fill in!");
-            return;
-        }
-
-        if (userRepository.usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
-            updateInfoText("Username's already taken!");
-
-            User user = userRepository.findByUsername(txtFieldUsernameRegister.getText());
-            List<Task> tasks = user.getTasks();
-            return;
-        }
-
-        if (!pwdFieldRegister.getText().equals(pwdFieldConfirmRegister.getText())) {
-            updateInfoText("Passwords don't match!");
-            return;
-        }
-
-        User user = new User();
-        user.setUsername(txtFieldUsernameRegister.getText());
-        user.setPassword(Caesar.encrypt(pwdFieldRegister.getText(), 3, 3)); // encrypting the password :)
-
-        userRepository.save(user);
-
-        if (userRepository.usernameAlreadyInDB(user.getUsername())) {
-            txtFieldUsernameRegister.setText("");
-            pwdFieldRegister.setText("");
-            pwdFieldConfirmRegister.setText("");
-            updateInfoText("Username registered successfully!");
-
-
-        } else {
-            updateInfoText("Registration Failed!");
-        }
-    }
-
-
-    private void clearInfoText() {
-        updateInfoText("");
-    }
-
-    private void updateInfoText(String message) {
-        lblInformationRegister.setText(message);
-    }
-
-    @FXML
-    private void loginUser(ActionEvent actionEvent) {
-        User user = userRepository.findByUsername(txtFieldUsernameLogin.getText());
-        if (user == null) {
-            lblInformationLogin.setText("Invalid username!");
-            return;
-        }
-        if (!Caesar.encrypt(user.getPassword(), 23, 7).equals(pwdFieldLogin.getText())) {
-            lblInformationLogin.setText("Wrong password!");
-            return;
-        }
-
-
-        lblInformationLogin.setText("Login successful");
-        toggleTodoTab();
-        populateTodoLayout(user.getTasks());
-        loginUser = user; // save the login user
-    }
     public void populateTodoLayout(List<Task> tasks) {
         vBox.getChildren().clear();
         final ScrollPane scrollPane1 = new ScrollPane();
@@ -248,69 +130,9 @@ public class Controller {
     }
 
 
-
-    public void showPassword(ActionEvent actionEvent) {
-        if (!txtFieldPasswordShow.isVisible()) {
-            btnShowPassword.setText("Hide");
-            txtFieldPasswordShow.setText(pwdFieldLogin.getText());
-            txtFieldPasswordShow.setEditable(false);
-            txtFieldPasswordShow.setVisible(true);
-            pwdFieldLogin.setVisible(false);
-        } else {
-            btnShowPassword.setText("Show");
-            txtFieldPasswordShow.setVisible(false);
-            pwdFieldLogin.setVisible(true);
-        }
-    }
-
     public void closeApp(ActionEvent actionEvent) {
         Platform.exit();
     }
-
-    public void toggleLoginTab(ActionEvent actionEvent) {
-        if (!loginLayout.isVisible()) {
-            loginTab = createLoginTab();
-            menuItemLogin.setText("Hide Login");
-            tabPane.getTabs().add(loginTab);
-        } else {
-            loginLayout.setVisible(false);
-            menuItemLogin.setText("Show Login");
-            tabPane.getTabs().remove(loginTab);
-        }
-    }
-
-
-    public Tab createLoginTab() {
-        Tab loginTab = new Tab();
-        loginTab.setText("Login");
-        loginTab.setContent(loginLayout);
-        loginLayout.setVisible(true);
-
-        return loginTab;
-    }
-
-    public void toggleRegisterTab(ActionEvent actionEvent) {
-        if (!registerLayout.isVisible()) {
-            registerTab = createRegisterTab();
-            mnuItemRegister.setText("Hide Register");
-            tabPane.getTabs().add(registerTab);
-
-        } else {
-            registerLayout.setVisible(false);
-            mnuItemRegister.setText("Show Register");
-            tabPane.getTabs().remove(registerTab);
-        }
-    }
-
-    public Tab createRegisterTab() {
-        Tab registerTab = new Tab();
-        registerTab.setText("Register");
-        registerTab.setContent(registerLayout);
-        registerLayout.setVisible(true);
-
-        return registerTab;
-    }
-
 
 
     public void addTodo(ActionEvent actionEvent, String description) {
@@ -318,10 +140,10 @@ public class Controller {
         task.setCreatedAt(new Date());
         task.setDescription(description);
         task.setInProgress(true);
-        task.setUser(loginUser);
+        task.setUser(AppState.getInstance().getLoggedInUser());
         taskRepository.save(task);
 
-        User user = userRepository.findByUsername(loginUser.getUsername());
+        User user = userRepository.findByUsername(AppState.getInstance().getLoggedInUser().getUsername());
         populateTodoLayout(user.getTasks());
     }
 }
