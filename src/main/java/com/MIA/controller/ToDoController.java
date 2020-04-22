@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Controller {
+public class ToDoController {
 
     @FXML
     private VBox vBox;
@@ -42,7 +42,7 @@ public class Controller {
 
     private Tab todoTab;
 
-    public Controller() {
+    public ToDoController() {
     }
 
     @FXML

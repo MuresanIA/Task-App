@@ -2,7 +2,6 @@ package com.MIA.controller;
 
 import com.MIA.AppState;
 import com.MIA.model.User;
-import com.MIA.repository.TaskRepository;
 import com.MIA.repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,7 +69,7 @@ public class LoginController {
 
     public Scene getToDoScene() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("sample.fxml");
+        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("ToDo.fxml");
         Parent root = fxmlLoader.load(resourceAsStream);
         root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);
