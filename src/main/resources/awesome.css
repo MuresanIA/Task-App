@@ -1,25 +1,43 @@
-.root{
-    -fx-font-size  : 9pt;
-    -fx-font-family: "Arial";
-    -fx-base       : #f2f2f2;
-    -fx-background : #f2f2f2;
-    -fx-focus-color: #f2f2f2;
+@font-face{
+fx-font-family: 'Roboto';
+
 }
-#loginLayout{
--fx-background-color: #f2f2f2;
-}
-#registerLayout{
--fx-background-color: #f2f2f2;
-}
-.BorderPane{
--fx-background-color: #f2f2f2;
+#btnLoginWelcome{
+-fx-background-color: #27AE60
+-fx-font-family 'Roboto';
+-fx-font-style: normal;
+-fx-font-weight: normal;
+-fx-font-size: 14px;
+-fx-line-height: 20px;
+-fx-display: flex;
+-fx-align-items: center;
+-fx-text-align: center;
+-fx-text-fill:  #ECF0F1;
 }
 
-.check-box:selected .text {
-    -fx-strikethrough: true;
+
+#btnRegisterWelcome{
+-fx-background-color: #27AE60
+-fx-font-family 'Roboto';
+-fx-font-style: normal;
+-fx-font-weight: normal;
+-fx-font-size: 14px;
+-fx-line-height: 20px;
+-fx-display: flex;
+-fx-align-items: center;
+-fx-text-align: center;
+-fx-text-fill:  #ECF0F1;
 }
 
-.warning {
-    -fx-text-fill: red;
-    -fx-padding: 3 0 0 10;
+#welcomeText{
+-fx-font-family: Roboto;
+-fx-font-style: normal;
+-fx-font-weight: normal;
+-fx-font-size: 48px;
+-fx-line-height: 20px;
+-fx-display: flex;
+-fx-align-items: center;
+-fx-text-align: center;
+-fx-color: #000000;
+-fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
 }

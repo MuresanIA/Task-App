@@ -9,13 +9,19 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.MIA.controller.WelcomeController"
-            prefHeight="400.0" prefWidth="600.0">
-    <VBox>
-        <Button fx:id="btnLogin" mnemonicParsing="false"
-                onAction="#navigateToLoginScene" text="Login"/>
+            prefHeight="600.0" prefWidth="600.0">
+    <VBox/>
 
-        <Button fx:id="btnRegister" mnemonicParsing="false"
-                onAction="#navigateToRegisterScene" text="Register"/>
-    </VBox>
-  
+
+    <Label fx:id="welcomeText" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0" text="Welcome"/>
+
+
+    <Button fx:id="btnLoginWelcome" mnemonicParsing="false" onAction="#navigateToLoginScene" text="Login"
+            alignment="CENTER" prefWidth="150" prefHeight="40" layoutX="230" layoutY="220"/>
+
+
+    <Button fx:id="btnRegisterWelcome" mnemonicParsing="false" onAction="#navigateToRegisterScene" text="Register"
+            alignment="CENTER" prefWidth="150" prefHeight="40" layoutX="230" layoutY="290"/>
+
+
 </AnchorPane>

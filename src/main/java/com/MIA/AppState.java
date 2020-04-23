@@ -26,3 +26,4 @@ public class AppState {
         this.loggedInUser = loggedInUser;
     }
 }
+
