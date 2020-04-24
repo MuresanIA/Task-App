@@ -30,8 +30,14 @@ public class LoginController {
     public PasswordField pwdFieldLogin;
     public Button btnShowPassword;
     public TextField txtFieldPasswordShow;
-    public Label lblInformationLogin;
     public Button btnPreviousScene;
+    public Label lblPassword;
+    public Label loginText;
+    public Label invalidUsername;
+    public Label wrongPassword;
+    public Label loginSuccesful;
+    public Label emptyPassword;
+    public Label emptyLoginField;
     private UserRepository userRepository;
     private boolean isConnectionSuccessful = true;
 
@@ -77,17 +83,29 @@ public class LoginController {
 
     @FXML
     private void loginUser(ActionEvent actionEvent) throws Exception {
+        emptyLoginField.setText("");
+        if (txtFieldUsernameLogin.getText().equals("")){
+            emptyLoginField.setText("Username is empty!");
+            return;
+        }
+        invalidUsername.setText("");
         User user = userRepository.findByUsername(txtFieldUsernameLogin.getText());
         if (user == null) {
-            lblInformationLogin.setText("Invalid username!");
+            invalidUsername.setText("Invalid username!");
             return;
         }
+        emptyPassword.setText("");
+        if (pwdFieldLogin.getText().equals("")){
+            emptyPassword.setText("Password field is empty!");
+            return;
+        }
+        wrongPassword.setText("");
         if (!Caesar.encrypt(user.getPassword(), 23, 7).equals(pwdFieldLogin.getText())) {
-            lblInformationLogin.setText("Wrong password!");
+            wrongPassword.setText("Wrong password!");
             return;
+        }else {
+            loginSuccesful.setText("Login successful");
         }
-        lblInformationLogin.setText("Login successful");
-
         AppState.getInstance().setLoggedInUser(user);
 
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -108,6 +126,10 @@ public class LoginController {
             pwdFieldLogin.setVisible(true);
         }
     }
-
-
+        public void clearErrors(String message){
+            System.out.println(message);
+        }
+        public void updateInfo(){
+            System.out.println("");
+        }
 }

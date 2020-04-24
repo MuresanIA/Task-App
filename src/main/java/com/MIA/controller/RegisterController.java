@@ -31,6 +31,15 @@ public class RegisterController {
     public PasswordField pwdFieldConfirmRegister;
     public Label lblInformationRegister;
     public Button btnPreviousScene;
+    public Label registerText;
+    public Label usernameLabel;
+    public Label passwordLabel;
+    public Label confirmPasswordLabel;
+    public Label emptyUserName;
+    public Label emptyPasswordRegister;
+    public Label emptyPasswordConfirmRegister;
+    public Label userNameTaken;
+    public Label passwordsDontMatch;
     private UserRepository userRepository;
     private boolean isConnectionSuccessful;
 
@@ -68,51 +77,47 @@ public class RegisterController {
 
     @FXML
     private void registerUser(ActionEvent actionEvent) {
-        clearInfoText();
-
+        //TODO: Clear errors Register button is pressed!
+        emptyUserName.setText("");
         if (txtFieldUsernameRegister.getText().equals("")) {
-            updateInfoText("Username's empty. Please fill in!");
+            emptyUserName.setText("Username is empty!");
             return;
         }
+        emptyPasswordRegister.setText("");
         if (pwdFieldRegister.getText().equals("")) {
-            updateInfoText("Password field is empty. Please fill in!");
+            emptyPasswordRegister.setText("Password field is empty!");
             return;
         }
+        emptyPasswordConfirmRegister.setText("");
         if (pwdFieldConfirmRegister.getText().equals("")) {
-            updateInfoText("Password field is empty. Please fill in!");
+            emptyPasswordConfirmRegister.setText("Password field is empty!");
             return;
         }
-
+        userNameTaken.setText("");
         if (userRepository.usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
-            updateInfoText("Username's already taken!");
-
+            userNameTaken.setText("Username's already taken!");
             User user = userRepository.findByUsername(txtFieldUsernameRegister.getText());
             List<Task> tasks = user.getTasks();
             return;
         }
-
+        passwordsDontMatch.setText("");
         if (!pwdFieldRegister.getText().equals(pwdFieldConfirmRegister.getText())) {
-            updateInfoText("Passwords don't match!");
+            passwordsDontMatch.setText("Passwords don't match!");
             return;
         }
-
+        updateInfoText("");
         User user = new User();
         user.setUsername(txtFieldUsernameRegister.getText());
         user.setPassword(Caesar.encrypt(pwdFieldRegister.getText(), 3, 3)); // encrypting the password :)
-
         userRepository.save(user);
-
         if (userRepository.usernameAlreadyInDB(user.getUsername())) {
             txtFieldUsernameRegister.setText("");
             pwdFieldRegister.setText("");
             pwdFieldConfirmRegister.setText("");
             updateInfoText("Username registered successfully!");
-
-
         } else {
             updateInfoText("Registration Failed!");
         }
-
     }
 
     private void clearInfoText() {
@@ -122,6 +127,4 @@ public class RegisterController {
     private void updateInfoText(String message) {
         lblInformationRegister.setText(message);
     }
-
-
 }

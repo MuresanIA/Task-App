@@ -8,21 +8,30 @@
 
 
 <AnchorPane fx:id="loginLayout" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
-        xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="com.MIA.controller.LoginController">
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.MIA.controller.LoginController">
     <children>
-        <Button fx:id="btnLogin" layoutX="343.0" layoutY="172.0" mnemonicParsing="false" onAction="#loginUser"
+        <Button fx:id="btnLogin" layoutX="220.0" layoutY="347.0" prefWidth="150" prefHeight="40" mnemonicParsing="false"
+                onAction="#loginUser"
                 text="Login"/>
-        <Button fx:id="btnPreviousScene" layoutX="250.0" layoutY="172.0" mnemonicParsing="false" onAction="#goBack"
+        <Button fx:id="btnPreviousScene" layoutX="36.0" layoutY="534.0" prefWidth="135" prefHeight="32"
+                mnemonicParsing="false" onAction="#goBack"
                 text="Back"/>
-        <TextField fx:id="txtFieldUsernameLogin" layoutX="213.0" layoutY="69.0"/>
-        <Label fx:id="lblUsername" layoutX="144.0" layoutY="74.0" text="Username"/>
-        <Label layoutX="146.0" layoutY="124.0" text="Password"/>
-        <PasswordField fx:id="pwdFieldLogin" layoutX="213.0" layoutY="119.0"/>
-        <Button fx:id="btnShowPassword" layoutX="410.0" layoutY="119.0" mnemonicParsing="false"
-                onAction="#showPassword" text="Show"/>
-        <TextField fx:id="txtFieldPasswordShow" layoutX="213.0" layoutY="119.0" visible="false"/>
-        <Label fx:id="lblInformationLogin" layoutX="14.0" layoutY="241.0" prefHeight="21.0" prefWidth="624.0"/>
+        <Button fx:id="btnShowPassword" layoutX="458.0" layoutY="270.0" prefWidth="32" prefHeight="32"
+                mnemonicParsing="false" onAction="#showPassword"
+                text="Show"/>
+        <Label fx:id="loginText" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0" text="Login"/>
+        <Label fx:id="lblUsername" layoutX="109.0" layoutY="193.0" prefWidth="82" prefHeight="32" text="Username"/>
+        <Label fx:id="lblPassword" layoutX="109.0" layoutY="270.0" prefWidth="82" prefHeight="32" text="Password"/>
+        <Label fx:id="invalidUsername" layoutX="275.0" layoutY="230.0" prefHeight="21.0" prefWidth="624.0" />
+        <Label fx:id="wrongPassword" layoutX="280.0" layoutY="305.0" prefHeight="21.0" prefWidth="624.0"/>
+        <Label fx:id="emptyPassword" layoutX="260.0" layoutY="305.0" prefHeight="21.0" prefWidth="624.0"/>
+        <Label fx:id="emptyLoginField" layoutX="275.0" layoutY="230.0" prefHeight="21.0" prefWidth="624.0"/>
+        <Label fx:id="loginSuccesful" layoutX="220.0" layoutY="375.0" prefHeight="21.0" prefWidth="624.0"/>
+        <TextField fx:id="txtFieldUsernameLogin" layoutX="252.0" layoutY="193.0" prefWidth="178" prefHeight="32"/>
+        <PasswordField fx:id="pwdFieldLogin" layoutX="252.0" layoutY="270.0" prefWidth="178" prefHeight="32"/>
+        <TextField fx:id="txtFieldPasswordShow" layoutX="252.0" layoutY="270.0" prefWidth="178" prefHeight="32"
+                   visible="false"/>
     </children>
 </AnchorPane>
