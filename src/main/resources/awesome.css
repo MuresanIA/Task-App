@@ -1,6 +1,5 @@
 @font-face{
 fx-font-family: 'Roboto';
-
 }
 #btnLoginWelcome{
 -fx-background-color: #27AE60
@@ -8,7 +7,7 @@ fx-font-family: 'Roboto';
 -fx-font-style: normal;
 -fx-font-weight: normal;
 -fx-font-size: 14px;
--fx-line-height: 20px;c
+-fx-line-height: 20px;
 -fx-display: flex;
 -fx-align-items: center;
 -fx-text-align: center;
@@ -28,6 +27,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill:  #ECF0F1;
 }
+
 #welcomeText{
 -fx-position: absolute;
 -fx-width: 600px;
@@ -45,6 +45,7 @@ fx-font-family: 'Roboto';
 -fx-color: #000000;
 -fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
 }
+
 #registerText{
 -fx-position: absolute;
 -fx-width: 600px;
@@ -62,6 +63,7 @@ fx-font-family: 'Roboto';
 -fx-color: #000000;
 -fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
 }
+
 #loginText{
 -fx-position: absolute;
 -fx-width: 600px;
@@ -79,6 +81,7 @@ fx-font-family: 'Roboto';
 -fx-color: #000000;
 -fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
 }
+
 #btnRegister{
 -fx-background-color: #27AE60
 -fx-font-family 'Roboto';
@@ -91,6 +94,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill:  #ECF0F1;
 }
+
 #btnLogin{
 -fx-background-color: #27AE60
 -fx-font-family 'Roboto';
@@ -123,6 +127,7 @@ fx-font-family: 'Roboto';
 -fx-background: #ECF0F1;
 -fx-effect: dropshadow(three-pass-box, black, 1.80, 0.6, 0.6, 0.6);
 }
+
 #pwdFieldConfirmRegister{
 -fx-position: absolute;
 -fx-width: 181px;
@@ -132,6 +137,7 @@ fx-font-family: 'Roboto';
 -fx-background: #ECF0F1;
 -fx-effect: dropshadow(three-pass-box, black, 1.80, 0.6, 0.6, 0.6);
 }
+
 #txtFieldUsernameLogin{
 -fx-position: absolute;
 -fx-width: 181px;
@@ -141,6 +147,7 @@ fx-font-family: 'Roboto';
 -fx-background: #ECF0F1;
 -fx-effect: dropshadow(three-pass-box, black, 1.80, 0.6, 0.6, 0.6);
 }
+
 #pwdFieldLogin{
 -fx-position: absolute;
 -fx-width: 181px;
@@ -150,6 +157,7 @@ fx-font-family: 'Roboto';
 -fx-background: #ECF0F1;
 -fx-effect: dropshadow(three-pass-box, black, 1.80, 0.6, 0.6, 0.6);
 }
+
 #txtFieldPasswordShow{
 -fx-position: absolute;
 -fx-width: 181px;
@@ -170,6 +178,7 @@ fx-font-family: 'Roboto';
 -fx-align-items: center;
 -fx-text-align: center;
 }
+
 #lblUsername{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -180,6 +189,7 @@ fx-font-family: 'Roboto';
 -fx-align-items: center;
 -fx-text-align: center;
 }
+
 #lblPassword{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -190,6 +200,7 @@ fx-font-family: 'Roboto';
 -fx-align-items: center;
 -fx-text-align: center;
 }
+
 #invalidUsername{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -201,6 +212,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #C0392B;
 }
+
 #passwordLabel{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -211,6 +223,7 @@ fx-font-family: 'Roboto';
 -fx-align-items: center;
 -fx-text-align: center;
 }
+
 #confirmPasswordLabel{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -221,6 +234,7 @@ fx-font-family: 'Roboto';
 -fx-align-items: center;
 -fx-text-align: center;
 }
+
 #btnPreviousScene{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -233,6 +247,7 @@ fx-font-family: 'Roboto';
 -fx-background-color: #34495E;
 -fx-text-fill: #ECF0F1;
 }
+
 #lblInformationRegister{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -244,6 +259,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #27AE60;
 }
+
 #userNameTaken{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -255,6 +271,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #C0392B;
 }
+
 #wrongPassword{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -266,6 +283,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #C0392B;
 }
+
 #emptyLoginField{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -277,7 +295,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #C0392B;
 }
-}
+
 #emptyPassword{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -289,6 +307,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #C0392B;
 }
+
 #emptyPasswordRegister{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
@@ -300,6 +319,7 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill: #C0392B;
 }
+
 #emptyPasswordConfirmRegister{
 -fx-font-family: Roboto;
 -fx-font-style: normal;
