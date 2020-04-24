@@ -12,11 +12,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MIA.controller.ToDoController">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MIA.controller.ToDoController">
     <top>
         <MenuBar prefHeight="7.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="File">
-                <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#closeApp" text="Close" />
+                <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#closeApp" text="Close"/>
             </Menu>
         </MenuBar>
     </top>
@@ -25,24 +26,29 @@
 
             <HBox>
 
-                <TextField fx:id="todoInputTextField" layoutY="32.0" prefHeight="20.0" prefWidth="302.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></TextField>
+                <TextField fx:id="todoInputTextField" styleClass=" textFieldTheme" layoutY="32.0" prefHeight="20.0"
+                           prefWidth="302.0">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </TextField>
 
-                <Button fx:id="addTodoButton" mnemonicParsing="false" onAction="#addToDo" prefHeight="32" prefWidth="152" text="Create Todo">
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin></Button>
-            <VBox.margin>
-               <Insets left="52.0" top="27.0" />
-            </VBox.margin>
+                <Button fx:id="addTodoButton" styleClass="buttonTheme" mnemonicParsing="false" onAction="#addToDo"
+                        prefHeight="32" prefWidth="152" text="Create Todo">
+                    <HBox.margin>
+                        <Insets left="15.0"/>
+                    </HBox.margin>
+                </Button>
+                <VBox.margin>
+                    <Insets left="52.0" top="27.0"/>
+                </VBox.margin>
             </HBox>
 
-            <Label fx:id="emptyTodoError" layoutX="52.0" layoutY="76.0" styleClass="warning" text="Todo description cannot be empty!" visible="false" />
+            <Label fx:id="emptyTodoError" layoutX="52.0" layoutY="76.0" styleClass="warning"
+                   text="Todo description cannot be empty!" visible="false"/>
 
             <ScrollPane>
-                <VBox fx:id="todosVBox" />
+                <VBox fx:id="todosVBox"/>
             </ScrollPane>
 
 

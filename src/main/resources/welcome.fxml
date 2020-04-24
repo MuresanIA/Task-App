@@ -16,11 +16,11 @@
     <Label fx:id="welcomeText" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0" text="Welcome"/>
 
 
-    <Button fx:id="btnLoginWelcome" mnemonicParsing="false" onAction="#navigateToLoginScene" text="Login"
+    <Button fx:id="btnLoginWelcome" styleClass="buttonTheme" mnemonicParsing="false" onAction="#navigateToLoginScene" text="Login"
             alignment="CENTER" prefWidth="150" prefHeight="40" layoutX="230" layoutY="220"/>
 
 
-    <Button fx:id="btnRegisterWelcome" mnemonicParsing="false" onAction="#navigateToRegisterScene" text="Register"
+    <Button fx:id="btnRegisterWelcome" styleClass="buttonTheme" mnemonicParsing="false" onAction="#navigateToRegisterScene" text="Register"
             alignment="CENTER" prefWidth="150" prefHeight="40" layoutX="230" layoutY="290"/>
 
 
