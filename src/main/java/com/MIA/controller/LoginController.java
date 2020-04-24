@@ -2,7 +2,6 @@ package com.MIA.controller;
 
 import com.MIA.AppState;
 import com.MIA.model.User;
-import com.MIA.repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.Caesar;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.InputStream;
 
 public class LoginController {
@@ -38,26 +34,6 @@ public class LoginController {
     public Label loginSuccesful;
     public Label emptyPassword;
     public Label emptyLoginField;
-    private UserRepository userRepository;
-    private boolean isConnectionSuccessful = true;
-
-    @FXML
-    public void initialize() {
-        try {
-            persistenceConnection();
-
-        } catch (Exception ex) {
-            System.out.println("Connection is not allowed");
-            System.out.println(ex.toString());
-            isConnectionSuccessful = false;
-        }
-    }
-
-    private void persistenceConnection() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TODOFx");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        userRepository = new UserRepository(entityManager);
-    }
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -83,33 +59,38 @@ public class LoginController {
 
     @FXML
     private void loginUser(ActionEvent actionEvent) throws Exception {
-        emptyLoginField.setText("");
-        if (txtFieldUsernameLogin.getText().equals("")){
+        clearErrors();
+        if (txtFieldUsernameLogin.getText().equals("")) {
             emptyLoginField.setText("Username is empty!");
             return;
         }
-        invalidUsername.setText("");
-        User user = userRepository.findByUsername(txtFieldUsernameLogin.getText());
+        User user = AppState.getInstance().getUserRepository().findByUsername(txtFieldUsernameLogin.getText());
         if (user == null) {
             invalidUsername.setText("Invalid username!");
             return;
         }
-        emptyPassword.setText("");
-        if (pwdFieldLogin.getText().equals("")){
+        if (pwdFieldLogin.getText().equals("")) {
             emptyPassword.setText("Password field is empty!");
             return;
         }
-        wrongPassword.setText("");
         if (!Caesar.encrypt(user.getPassword(), 23, 7).equals(pwdFieldLogin.getText())) {
             wrongPassword.setText("Wrong password!");
             return;
-        }else {
+        } else {
             loginSuccesful.setText("Login successful");
         }
         AppState.getInstance().setLoggedInUser(user);
 
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(getToDoScene());
+
+    }
+
+    public void clearErrors() {
+        emptyLoginField.setText("");
+        invalidUsername.setText("");
+        emptyPassword.setText("");
+        wrongPassword.setText("");
 
     }
 
@@ -126,10 +107,12 @@ public class LoginController {
             pwdFieldLogin.setVisible(true);
         }
     }
-        public void clearErrors(String message){
-            System.out.println(message);
-        }
-        public void updateInfo(){
-            System.out.println("");
-        }
+
+    public void clearErrors(String message) {
+        System.out.println(message);
+    }
+
+    public void updateInfo() {
+        System.out.println("");
+    }
 }

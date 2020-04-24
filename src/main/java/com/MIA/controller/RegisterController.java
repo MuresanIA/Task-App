@@ -1,6 +1,6 @@
 package com.MIA.controller;
 
-import com.MIA.model.Task;
+import com.MIA.AppState;
 import com.MIA.model.User;
 import com.MIA.repository.UserRepository;
 import javafx.event.ActionEvent;
@@ -17,11 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.Caesar;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.InputStream;
-import java.util.List;
 
 public class RegisterController {
     public AnchorPane registerLayout;
@@ -40,26 +36,6 @@ public class RegisterController {
     public Label emptyPasswordConfirmRegister;
     public Label userNameTaken;
     public Label passwordsDontMatch;
-    private UserRepository userRepository;
-    private boolean isConnectionSuccessful;
-
-    @FXML
-    public void initialize() {
-        try {
-            persistenceConnection();
-
-        } catch (Exception ex) {
-            System.out.println("Connection is not allowed");
-            System.out.println(ex.toString());
-            isConnectionSuccessful = false;
-        }
-    }
-
-    private void persistenceConnection() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TODOFx");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        userRepository = new UserRepository(entityManager);
-    }
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -77,40 +53,35 @@ public class RegisterController {
 
     @FXML
     private void registerUser(ActionEvent actionEvent) {
+        clearErrorMessages();
         //TODO: Clear errors Register button is pressed!
-        emptyUserName.setText("");
         if (txtFieldUsernameRegister.getText().equals("")) {
             emptyUserName.setText("Username is empty!");
             return;
         }
-        emptyPasswordRegister.setText("");
         if (pwdFieldRegister.getText().equals("")) {
             emptyPasswordRegister.setText("Password field is empty!");
             return;
         }
-        emptyPasswordConfirmRegister.setText("");
         if (pwdFieldConfirmRegister.getText().equals("")) {
             emptyPasswordConfirmRegister.setText("Password field is empty!");
             return;
         }
-        userNameTaken.setText("");
-        if (userRepository.usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
+        if (getUserRepository().usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
             userNameTaken.setText("Username's already taken!");
-            User user = userRepository.findByUsername(txtFieldUsernameRegister.getText());
-            List<Task> tasks = user.getTasks();
             return;
         }
-        passwordsDontMatch.setText("");
+
         if (!pwdFieldRegister.getText().equals(pwdFieldConfirmRegister.getText())) {
             passwordsDontMatch.setText("Passwords don't match!");
             return;
         }
-        updateInfoText("");
+
         User user = new User();
         user.setUsername(txtFieldUsernameRegister.getText());
         user.setPassword(Caesar.encrypt(pwdFieldRegister.getText(), 3, 3)); // encrypting the password :)
-        userRepository.save(user);
-        if (userRepository.usernameAlreadyInDB(user.getUsername())) {
+        getUserRepository().save(user);
+        if (getUserRepository().usernameAlreadyInDB(user.getUsername())) {
             txtFieldUsernameRegister.setText("");
             pwdFieldRegister.setText("");
             pwdFieldConfirmRegister.setText("");
@@ -120,11 +91,19 @@ public class RegisterController {
         }
     }
 
-    private void clearInfoText() {
-        updateInfoText("");
+    private void clearErrorMessages() {
+        emptyUserName.setText("");
+        emptyPasswordRegister.setText("");
+        emptyPasswordConfirmRegister.setText("");
+        userNameTaken.setText("");
+        passwordsDontMatch.setText("");
     }
 
     private void updateInfoText(String message) {
         lblInformationRegister.setText(message);
+    }
+
+    private UserRepository getUserRepository() {
+        return AppState.getInstance().getUserRepository();
     }
 }

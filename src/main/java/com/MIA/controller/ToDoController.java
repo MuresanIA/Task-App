@@ -12,15 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
@@ -34,12 +30,6 @@ public class ToDoController {
     @FXML
     private TabPane tabPane;
 
-    private UserRepository userRepository;
-
-    private TaskRepository taskRepository;
-
-    private boolean isConnectionSuccessful = true;
-
     private Tab todoTab;
 
     public ToDoController() {
@@ -47,23 +37,8 @@ public class ToDoController {
 
     @FXML
     public void initialize() {
-        try {
-            persistenceConnection();
-                    toggleTodoTab();
+        toggleTodoTab();
         populateTodoLayout(AppState.getInstance().getLoggedInUser().getTasks());
-
-        } catch (Exception ex) {
-            System.out.println("Connection is not allowed");
-            System.out.println(ex.toString());
-            isConnectionSuccessful = false;
-        }
-    }
-
-    private void persistenceConnection() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TODOFx");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        userRepository = new UserRepository(entityManager);
-        taskRepository = new TaskRepository(entityManager);
     }
 
     public void populateTodoLayout(List<Task> tasks) {
@@ -82,7 +57,7 @@ public class ToDoController {
             checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                     task.setInProgress(!newValue);
-                    taskRepository.save(task);
+                    getTaskRepository().save(task);
                     String ssound = Paths.get("pencil.mp3").toUri().toString();
                     Media sound = new Media(ssound);
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -141,9 +116,17 @@ public class ToDoController {
         task.setDescription(description);
         task.setInProgress(true);
         task.setUser(AppState.getInstance().getLoggedInUser());
-        taskRepository.save(task);
+        getTaskRepository().save(task);
 
-        User user = userRepository.findByUsername(AppState.getInstance().getLoggedInUser().getUsername());
+        User user = getUserRepository().findByUsername(AppState.getInstance().getLoggedInUser().getUsername());
         populateTodoLayout(user.getTasks());
+    }
+
+    private TaskRepository getTaskRepository() {
+        return AppState.getInstance().getTaskRepository();
+    }
+
+    private UserRepository getUserRepository() {
+        return AppState.getInstance().getUserRepository();
     }
 }
