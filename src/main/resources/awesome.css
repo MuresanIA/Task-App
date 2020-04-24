@@ -27,6 +27,18 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 -fx-text-fill:  #ECF0F1;
 }
+#addTodoButton{
+-fx-background-color: #27AE60
+-fx-font-family 'Roboto';
+-fx-font-style: normal;
+-fx-font-weight: normal;
+-fx-font-size: 14px;
+-fx-line-height: 20px;
+-fx-display: flex;
+-fx-align-items: center;
+-fx-text-align: center;
+-fx-text-fill:  #ECF0F1;
+}
 
 #welcomeText{
 -fx-position: absolute;
@@ -82,6 +94,10 @@ fx-font-family: 'Roboto';
 -fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
 }
 
+.check-box:selected .text {
+    -fx-strikethrough: true;
+}
+
 #btnRegister{
 -fx-background-color: #27AE60
 -fx-font-family 'Roboto';
@@ -116,6 +132,15 @@ fx-font-family: 'Roboto';
 -fx-top: 168px;
 -fx-background: #ECF0F1;
 -fx-effect: dropshadow(three-pass-box, black, 1.80, 0.6, 0.6, 0.6);
+}
+#todoInputTextField{
+-fx-position: absolute;
+-fx-width: 181px;
+-fx-height: 35px;
+-fx-left: 282px;
+-fx-top: 168px;
+-fx-background: #ECF0F1;
+-fx-effect: dropshadow(three-pass-box, red, 1.80, 0.6, 0.6, 0.6);
 }
 
 #pwdFieldRegister{
@@ -201,16 +226,16 @@ fx-font-family: 'Roboto';
 -fx-text-align: center;
 }
 
-#invalidUsername{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
+.warning {
+    -fx-font-family: Roboto;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-font-size: 16px;
+    -fx-line-height: 20px;
+    -fx-display: flex;
+    -fx-align-items: center;
+    -fx-text-align: center;
+    -fx-text-fill: #C0392B;
 }
 
 #passwordLabel{
@@ -258,98 +283,4 @@ fx-font-family: 'Roboto';
 -fx-align-items: center;
 -fx-text-align: center;
 -fx-text-fill: #27AE60;
-}
-
-#userNameTaken{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-
-#wrongPassword{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-
-#emptyLoginField{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-
-#emptyPassword{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-
-#emptyPasswordRegister{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-
-#emptyPasswordConfirmRegister{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-#passwordsDontMatch{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
-}
-#emptyUserName{
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 16px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-text-fill: #C0392B;
 }

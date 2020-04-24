@@ -21,13 +21,18 @@
         <Button fx:id="btnShowPassword" layoutX="458.0" layoutY="270.0" prefWidth="32" prefHeight="32"
                 mnemonicParsing="false" onAction="#showPassword"
                 text="Show"/>
-        <Label fx:id="loginText" textAlignment="CENTER" alignment="CENTER"  prefHeight="150.0" prefWidth="600.0" text="Login"/>
+        <Label fx:id="loginText" textAlignment="CENTER" alignment="CENTER" prefHeight="150.0" prefWidth="600.0"
+               text="Login"/>
         <Label fx:id="lblUsername" layoutX="109.0" layoutY="193.0" prefWidth="82" prefHeight="32" text="Username"/>
         <Label fx:id="lblPassword" layoutX="109.0" layoutY="270.0" prefWidth="82" prefHeight="32" text="Password"/>
-        <Label fx:id="invalidUsername" layoutX="275.0" layoutY="230.0" prefHeight="21.0" prefWidth="624.0" />
-        <Label fx:id="wrongPassword" layoutX="280.0" layoutY="305.0" prefHeight="21.0" prefWidth="624.0"/>
-        <Label fx:id="emptyPassword" layoutX="260.0" layoutY="305.0" prefHeight="21.0" prefWidth="624.0"/>
-        <Label fx:id="emptyLoginField" layoutX="275.0" layoutY="230.0" prefHeight="21.0" prefWidth="624.0"/>
+        <Label fx:id="invalidUsername" styleClass="warning" layoutX="275.0" layoutY="230.0" prefHeight="21.0"
+               prefWidth="624.0"/>
+        <Label fx:id="wrongPassword" styleClass="warning" layoutX="280.0" layoutY="305.0" prefHeight="21.0"
+               prefWidth="624.0"/>
+        <Label fx:id="emptyPassword" styleClass="warning" layoutX="260.0" layoutY="305.0" prefHeight="21.0"
+               prefWidth="624.0"/>
+        <Label fx:id="emptyLoginField" styleClass="warning" layoutX="275.0" layoutY="230.0" prefHeight="21.0"
+               prefWidth="624.0"/>
         <Label fx:id="loginSuccesful" layoutX="220.0" layoutY="375.0" prefHeight="21.0" prefWidth="624.0"/>
         <TextField fx:id="txtFieldUsernameLogin" layoutX="252.0" layoutY="193.0" prefWidth="178" prefHeight="32"/>
         <PasswordField fx:id="pwdFieldLogin" layoutX="252.0" layoutY="270.0" prefWidth="178" prefHeight="32"/>

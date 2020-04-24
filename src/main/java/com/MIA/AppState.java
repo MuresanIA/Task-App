@@ -34,7 +34,6 @@ public class AppState {
         taskRepository = new TaskRepository(entityManager);
     }
 
-
     public User getLoggedInUser() {
         return loggedInUser;
     }
