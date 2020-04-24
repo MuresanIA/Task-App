@@ -13,7 +13,7 @@
     <VBox/>
 
 
-    <Label fx:id="welcomeText" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0" text="Welcome"/>
+    <Label fx:id="welcomeText" styleClass="bigTextTheme" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0" text="Welcome"/>
 
 
     <Button fx:id="btnLoginWelcome" styleClass="buttonTheme" mnemonicParsing="false" onAction="#navigateToLoginScene" text="Login"

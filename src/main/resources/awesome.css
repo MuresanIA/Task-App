@@ -32,7 +32,7 @@ fx-font-family: 'Roboto';
 -fx-background-color: #34495E;
 -fx-text-fill: #ECF0F1;
 }
-#welcomeText{
+.bigTextTheme{
 -fx-position: absolute;
 -fx-width: 600px;
 -fx-height: 168px;
@@ -49,40 +49,9 @@ fx-font-family: 'Roboto';
 -fx-color: #000000;
 -fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
 }
-#registerText{
--fx-position: absolute;
--fx-width: 600px;
--fx-height: 168px;
--fx-left: 0px;
--fx-top: 0px;
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 48px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-color: #000000;
--fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
-}
-#loginText{
--fx-position: absolute;
--fx-width: 600px;
--fx-height: 168px;
--fx-left: 0px;
--fx-top: 0px;
--fx-font-family: Roboto;
--fx-font-style: normal;
--fx-font-weight: normal;
--fx-font-size: 48px;
--fx-line-height: 20px;
--fx-display: flex;
--fx-align-items: center;
--fx-text-align: center;
--fx-color: #000000;
--fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);
-}
+
+
+
 .check-box:selected .text {
     -fx-strikethrough: true;
 }

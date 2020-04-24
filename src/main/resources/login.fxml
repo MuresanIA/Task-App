@@ -21,7 +21,7 @@
         <Button fx:id="btnShowPassword" layoutX="458.0" layoutY="270.0" prefWidth="32" prefHeight="32"
                 mnemonicParsing="false" onAction="#showPassword"
                 text="Show"/>
-        <Label fx:id="loginText" styleClass="labels" textAlignment="CENTER" alignment="CENTER" prefHeight="150.0" prefWidth="600.0"
+        <Label fx:id="loginText" styleClass="bigTextTheme" textAlignment="CENTER" alignment="CENTER" prefHeight="150.0" prefWidth="600.0"
                text="Login"/>
         <Label fx:id="lblUsername" styleClass="labels"  layoutX="109.0" layoutY="193.0" prefWidth="82" prefHeight="32" text="Username"/>
         <Label fx:id="lblPassword" styleClass="labels" layoutX="109.0" layoutY="270.0" prefWidth="82" prefHeight="32" text="Password"/>

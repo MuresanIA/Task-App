@@ -11,7 +11,7 @@
             fx:controller="com.MIA.controller.RegisterController"
             fx:id="registerLayout" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
     <children>
-        <Label fx:id="registerText" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0"
+        <Label fx:id="registerText" styleClass="bigTextTheme" layoutX="222.0" layoutY="20.0" prefHeight="150.0" prefWidth="200.0"
                text="Register"/>
         <Label fx:id="usernameLabel" styleClass="labels" layoutX="104.0" layoutY="168.0" text="Username"/>
         <Label fx:id="passwordLabel" styleClass="labels"  layoutX="104.0" layoutY="255.0" text="Password"/>
