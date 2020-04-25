@@ -17,7 +17,7 @@
                 text="Login"/>
         <Button fx:id="btnPreviousScene" styleClass="goBackButtonTheme" layoutX="36.0" layoutY="534.0" prefWidth="135" prefHeight="32"
                 mnemonicParsing="false" onAction="#goBack"
-                text="Back"/>
+                text="Go Back"/>
         <Button fx:id="btnShowPassword" layoutX="458.0" layoutY="270.0" prefWidth="32" prefHeight="32"
                 mnemonicParsing="false" onAction="#showPassword"
                 text="Show"/>
