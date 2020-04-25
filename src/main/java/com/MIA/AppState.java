@@ -14,6 +14,7 @@ public class AppState {
 
     private UserRepository userRepository;
     private TaskRepository taskRepository;
+//TODO: threads to connection and show message boolean expression
 
     private AppState() {
         persistenceConnection();
