@@ -1,6 +1,9 @@
 package com.MIA;
 
+import com.MIA.model.Project;
 import com.MIA.model.User;
+import com.MIA.repository.ProjectRepository;
+import com.MIA.repository.SubTaskRepository;
 import com.MIA.repository.TaskRepository;
 import com.MIA.repository.UserRepository;
 
@@ -14,7 +17,9 @@ public class AppState {
 
     private UserRepository userRepository;
     private TaskRepository taskRepository;
-//TODO: threads to connection and show message boolean expression
+    private SubTaskRepository subTaskRepository;
+    private ProjectRepository projectRepository;
+//TODO: threads to connection and show message => boolean expression
 
     private AppState() {
         persistenceConnection();
@@ -33,6 +38,8 @@ public class AppState {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         userRepository = new UserRepository(entityManager);
         taskRepository = new TaskRepository(entityManager);
+        subTaskRepository = new SubTaskRepository(entityManager);
+        projectRepository = new ProjectRepository(entityManager);
     }
 
     public User getLoggedInUser() {

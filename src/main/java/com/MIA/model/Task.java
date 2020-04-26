@@ -2,6 +2,7 @@ package com.MIA.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "task")
@@ -18,6 +19,11 @@ public class Task {
     private String description;
     @Column(name = "in_progress")
     private boolean inProgress;
+    @ManyToOne
+    private Project project;
+    @OneToMany(mappedBy = "task")
+    private List<SubTask> subtasks;
+
 
     public Task() {
     }

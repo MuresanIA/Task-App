@@ -21,7 +21,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     @OrderBy("created_at ASC") // pune To Do-urile in ordine ASC sau DESC in functie de TIMESTAMP-ul din phpAdmin SQL -> daca aleg DESC
     private List<Task> tasks;
+    @ManyToMany
+    @JoinTable(name = "working_project",
+            joinColumns = @JoinColumn(name = "user_id"), //current entity -> user
+            inverseJoinColumns = @JoinColumn(name = "project_id")) // "foreign" entity -> project
+    private List<Project> projects;
 
+    @OneToOne(mappedBy = "user")
+    private PendingUser pendingUser;
 
     public User() {
     }

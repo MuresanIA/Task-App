@@ -1,0 +1,45 @@
+package com.MIA.repository;
+
+import com.MIA.model.SubTask;
+import com.MIA.model.Task;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+
+public class SubTaskRepository implements CrudRepository<SubTask, Integer>{
+    private EntityManager entityManager;
+
+    public SubTaskRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public List<SubTask> findAll() {
+        return null;
+    }
+
+    public void save(SubTask subTask) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(subTask);
+        entityManager.getTransaction().commit();
+    }
+
+    public void deleteById(Integer id) {
+        SubTask subTask = findById(id);
+        if (subTask != null) {
+            entityManager.getTransaction().begin();
+            entityManager.remove(subTask);
+            entityManager.getTransaction().commit();
+        }
+    }
+
+
+    public SubTask findById(Integer id) {
+        try {
+            SubTask subTask = entityManager.find(SubTask.class, id);
+            return subTask;
+        } catch (Exception e) {
+            System.out.println("Something went wrong...");
+        }
+        return null;
+    }
+}

@@ -33,7 +33,7 @@
                prefWidth="624.0"/>
         <Label fx:id="emptyLoginField" styleClass="warning" layoutX="275.0" layoutY="230.0" prefHeight="21.0"
                prefWidth="624.0"/>
-        <Label fx:id="loginSuccesful" layoutX="220.0" layoutY="375.0" prefHeight="21.0" prefWidth="624.0"/>
+        <Label fx:id="loginSuccesful" layoutX="235.0" layoutY="390.0" prefHeight="21.0" prefWidth="624.0"/>
         <TextField fx:id="txtFieldUsernameLogin" styleClass="textFieldTheme" layoutX="252.0" layoutY="193.0" prefWidth="178" prefHeight="32"/>
         <PasswordField fx:id="pwdFieldLogin" styleClass="textFieldTheme" layoutX="252.0" layoutY="270.0" prefWidth="178" prefHeight="32"/>
         <TextField fx:id="txtFieldPasswordShow" styleClass="textFieldTheme" layoutX="252.0" layoutY="270.0" prefWidth="178" prefHeight="32"
