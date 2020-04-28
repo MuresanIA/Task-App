@@ -1,6 +1,5 @@
 package com.MIA.controller;
 
-import com.MIA.AppState;
 import com.MIA.model.User;
 import com.MIA.repository.UserRepository;
 import javafx.event.ActionEvent;
@@ -15,10 +14,16 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import utils.Caesar;
 
 import java.io.InputStream;
 
+@Component
+@FxmlView("register.fxml")
 public class RegisterController {
     public AnchorPane registerLayout;
     public TextField txtFieldUsernameRegister;
@@ -36,6 +41,9 @@ public class RegisterController {
     public Label emptyPasswordConfirmRegister;
     public Label userNameTaken;
     public Label passwordsDontMatch;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -67,7 +75,7 @@ public class RegisterController {
             emptyPasswordConfirmRegister.setText("Password field is empty!");
             return;
         }
-        if (getUserRepository().usernameAlreadyInDB(txtFieldUsernameRegister.getText())) {
+        if (userRepository.findByUsername(txtFieldUsernameRegister.getText()) != null) {
             userNameTaken.setText("Username's already taken!");
             return;
         }
@@ -80,8 +88,8 @@ public class RegisterController {
         User user = new User();
         user.setUsername(txtFieldUsernameRegister.getText());
         user.setPassword(Caesar.encrypt(pwdFieldRegister.getText(), 3, 3)); // encrypting the password :)
-        getUserRepository().save(user);
-        if (getUserRepository().usernameAlreadyInDB(user.getUsername())) {
+        userRepository.save(user);
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             txtFieldUsernameRegister.setText("");
             pwdFieldRegister.setText("");
             pwdFieldConfirmRegister.setText("");
@@ -103,7 +111,5 @@ public class RegisterController {
         lblInformationRegister.setText(message);
     }
 
-    private UserRepository getUserRepository() {
-        return AppState.getInstance().getUserRepository();
-    }
+
 }

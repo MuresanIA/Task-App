@@ -2,7 +2,7 @@ package com.MIA.repository;
 
 import java.util.List;
 
-public interface CrudRepository<T, K> {
+public interface CustomCrudRepository<T, K> {
     List<T> findAll(); // Read (SELECT *)
 
     void save(T t); // Create and Update (INSERT and UPDATE)

@@ -10,15 +10,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.io.InputStream;
 
+@Component
+@FxmlView("welcome.fxml")
 public class WelcomeController {
     public Button btnLoginWelcome;
     public Button btnRegisterWelcome;
     public Label welcomeText;
-
-
 
 
     public void navigateToRegisterScene(ActionEvent actionEvent) throws Exception {

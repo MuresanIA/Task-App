@@ -1,6 +1,5 @@
 package com.MIA.controller;
 
-import com.MIA.AppState;
 import com.MIA.model.Task;
 import com.MIA.model.User;
 import com.MIA.repository.TaskRepository;
@@ -12,12 +11,16 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
-
+@Component
+@FxmlView("ToDo.fxml")
 public class ToDoController {
 
     public MenuItem menuFileClose;
@@ -25,13 +28,14 @@ public class ToDoController {
     public TextField todoInputTextField;
     public Label emptyTodoError;
     public VBox todosVBox;
-//TODO:ADD SUBTASK METHOD TO CODE
+
+    //TODO:ADD SUBTASK METHOD TO CODE
     public ToDoController() {
     }
 
     @FXML
     public void initialize() {
-        populateTodoLayout(AppState.getInstance().getLoggedInUser().getTasks());
+        //populateTodoLayout(AppState.getInstance().getLoggedInUser().getTasks());
     }
 
     public void populateTodoLayout(List<Task> tasks) {
@@ -60,19 +64,19 @@ public class ToDoController {
         task.setCreatedAt(new Date());
         task.setDescription(description);
         task.setInProgress(true);
-        task.setUser(AppState.getInstance().getLoggedInUser());
+        //task.setUser(AppState.getInstance().getLoggedInUser());
         getTaskRepository().save(task);
 
-        User user = getUserRepository().findByUsername(AppState.getInstance().getLoggedInUser().getUsername());
-        populateTodoLayout(user.getTasks());
+        //User user = getUserRepository().findByUsername(AppState.getInstance().getLoggedInUser().getUsername());
+        //populateTodoLayout(user.getTasks());
     }
 
     private TaskRepository getTaskRepository() {
-        return AppState.getInstance().getTaskRepository();
+        return null;
     }
 
     private UserRepository getUserRepository() {
-        return AppState.getInstance().getUserRepository();
+        return null;
     }
 
     public void addToDo(ActionEvent event) {

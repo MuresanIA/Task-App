@@ -1,7 +1,7 @@
 package com.MIA.controller;
 
-import com.MIA.AppState;
 import com.MIA.model.User;
+import com.MIA.repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +14,16 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import utils.Caesar;
 
 import java.io.InputStream;
 
+@Component
+@FxmlView("login.fxml")
 public class LoginController {
     public AnchorPane loginLayout;
     public Button btnLogin;
@@ -34,6 +40,9 @@ public class LoginController {
     public Label loginSuccesful;
     public Label emptyPassword;
     public Label emptyLoginField;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -64,7 +73,7 @@ public class LoginController {
             emptyLoginField.setText("Username is empty!");
             return;
         }
-        User user = AppState.getInstance().getUserRepository().findByUsername(txtFieldUsernameLogin.getText());
+        User user = userRepository.findByUsername(txtFieldUsernameLogin.getText());
         if (user == null) {
             invalidUsername.setText("Invalid username!");
             return;
@@ -79,7 +88,6 @@ public class LoginController {
         } else {
             loginSuccesful.setText("Login successful");
         }
-        AppState.getInstance().setLoggedInUser(user);
 
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(getToDoScene());
