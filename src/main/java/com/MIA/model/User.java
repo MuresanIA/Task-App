@@ -18,10 +18,10 @@ public class User {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @OrderBy("created_at ASC") // pune To Do-urile in ordine ASC sau DESC in functie de TIMESTAMP-ul din phpAdmin SQL -> daca aleg DESC
     private List<Task> tasks;
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "working_project",
             joinColumns = @JoinColumn(name = "user_id"), //current entity -> user
             inverseJoinColumns = @JoinColumn(name = "project_id")) // "foreign" entity -> project

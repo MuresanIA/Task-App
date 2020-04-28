@@ -12,15 +12,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
 @Component
-@FxmlView("ToDo.fxml")
+@FxmlView("todo.fxml")
 public class ToDoController {
 
     public MenuItem menuFileClose;
@@ -29,13 +29,20 @@ public class ToDoController {
     public Label emptyTodoError;
     public VBox todosVBox;
 
+    @Autowired
+    TaskRepository taskRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     //TODO:ADD SUBTASK METHOD TO CODE
     public ToDoController() {
     }
 
     @FXML
     public void initialize() {
-        //populateTodoLayout(AppState.getInstance().getLoggedInUser().getTasks());
+        String username = ApplicationContextSingleton.getLoggedInUser();
+        populateTodoLayout(userRepository.findByUsername(username).getTasks());
     }
 
     public void populateTodoLayout(List<Task> tasks) {
@@ -46,7 +53,7 @@ public class ToDoController {
             checkBox.setSelected(!task.isInProgress());
             checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
                 task.setInProgress(!newValue);
-                getTaskRepository().save(task);
+                taskRepository.save(task);
                 playRandomSound();
             });
             todosVBox.getChildren().add(checkBox);
@@ -58,25 +65,22 @@ public class ToDoController {
         Platform.exit();
     }
 
+    private User loggedInUser() {
+        return userRepository.findByUsername(ApplicationContextSingleton.getLoggedInUser());
+    }
+
 
     public void addTodo(ActionEvent actionEvent, String description) {
+        User currentUser = loggedInUser();
         Task task = new Task();
         task.setCreatedAt(new Date());
         task.setDescription(description);
         task.setInProgress(true);
-        //task.setUser(AppState.getInstance().getLoggedInUser());
-        getTaskRepository().save(task);
+        task.setUser(currentUser);
+        taskRepository.save(task);
 
-        //User user = getUserRepository().findByUsername(AppState.getInstance().getLoggedInUser().getUsername());
-        //populateTodoLayout(user.getTasks());
-    }
-
-    private TaskRepository getTaskRepository() {
-        return null;
-    }
-
-    private UserRepository getUserRepository() {
-        return null;
+//        User user = userRepository.gettas(AppState.getInstance().getLoggedInUser().getUsername());
+        populateTodoLayout(loggedInUser().getTasks());
     }
 
     public void addToDo(ActionEvent event) {
