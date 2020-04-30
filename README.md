@@ -3,6 +3,8 @@ So far the program behaves as an ordinary todo_app.
 
 I'm looking forward to add a few more implementations regarding:
 
+CSS
+
 HTML
 
 SpringData
