@@ -79,7 +79,6 @@ public class ToDoController {
         task.setUser(currentUser);
         taskRepository.save(task);
 
-//        User user = userRepository.gettas(AppState.getInstance().getLoggedInUser().getUsername());
         populateTodoLayout(loggedInUser().getTasks());
     }
 

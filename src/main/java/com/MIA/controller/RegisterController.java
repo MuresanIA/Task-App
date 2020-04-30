@@ -48,8 +48,6 @@ public class RegisterController {
     }
 
     public Scene getWelcomeScene() throws Exception {
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("welcome.fxml");
         Parent root = ApplicationContextSingleton.createContextFromResource("welcome.fxml");
         root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);

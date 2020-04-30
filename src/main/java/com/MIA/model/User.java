@@ -19,7 +19,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @OrderBy("created_at ASC") // pune To Do-urile in ordine ASC sau DESC in functie de TIMESTAMP-ul din phpAdmin SQL -> daca aleg DESC
+    @OrderBy("created_at ASC")
     private List<Task> tasks;
     @ManyToMany()
     @JoinTable(name = "working_project",

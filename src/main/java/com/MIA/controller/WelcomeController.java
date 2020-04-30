@@ -32,16 +32,12 @@ public class WelcomeController {
     }
 
     public Scene getLoginScene() throws Exception {
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("login.fxml");
         Parent root = ApplicationContextSingleton.createContextFromResource("login.fxml");
         root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);
     }
 
     public Scene getRegisterScene() throws Exception {
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("register.fxml");
         Parent root = ApplicationContextSingleton.createContextFromResource("register.fxml");
         root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);

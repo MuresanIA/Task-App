@@ -47,24 +47,16 @@ public class LoginController {
     }
 
     public Scene getWelcomeScene() throws Exception {
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("welcome.fxml");
         Parent root = ApplicationContextSingleton.createContextFromResource("welcome.fxml");
         root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);
     }
 
     public Scene getToDoScene() throws Exception {
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("todo.fxml");
         Parent root = ApplicationContextSingleton.createContextFromResource("todo.fxml");
         root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);
     }
-//            @Autowired
-//        public LoginController (UserRepository userRepository){
-//            this.userRepository = userRepository;
-//        }
 
     @FXML
     private void loginUser(ActionEvent actionEvent) throws Exception {
