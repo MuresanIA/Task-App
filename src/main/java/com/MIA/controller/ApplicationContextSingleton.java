@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ApplicationContextSingleton {
-
+//TODO: ADD THREADING TO CONNECTION
     private static ConfigurableApplicationContext applicationContext;
     private static ClassLoader classLoader;
     private static String username;

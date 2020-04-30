@@ -2,7 +2,7 @@ package com.MIA.model;
 
 
 import javax.persistence.*;
-
+//TODO: ADD PENDING USER METHOD TO PROJECT
 @Entity
 @Table(name = "pending_user")
 public class PendingUser {

@@ -21,9 +21,7 @@ public class ToDoAppApplication extends Application {
     public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
         ApplicationContextSingleton.initContext(args);
-//        this.applicationContext = new SpringApplicationBuilder()
-//                .sources(SpringBoot.class)
-//                .run(args);
+
     }
 
     @Override
@@ -31,7 +29,6 @@ public class ToDoAppApplication extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = getClass().getResource("/welcome.fxml");
         loader.setLocation(xmlUrl);
-//        loader.setControllerFactory(clazz -> applicationContext.getBean(clazz));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
