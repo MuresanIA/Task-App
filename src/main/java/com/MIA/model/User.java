@@ -1,9 +1,7 @@
 package com.MIA.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -30,8 +28,7 @@ public class User {
     @Column(name = "isAdmin")
     private boolean isAdmin;
 
-    @Column(name = "isConfirmed")
-    private boolean isConfirmed;
+
 
     public User() {
     }
@@ -76,13 +73,6 @@ public class User {
         isAdmin = admin;
     }
 
-    public boolean isConfirmed() {
-        return isConfirmed;
-    }
-
-    public void setConfirmed(boolean confirmed) {
-        isConfirmed = confirmed;
-    }
 }
 
 

@@ -1,7 +1,6 @@
 package com.MIA.controller;
 
-import com.MIA.SpringBoot;
-import com.MIA.model.User;
+import com.MIA.ToDoAppApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -21,19 +20,21 @@ public class ApplicationContextSingleton {
         if(applicationContext == null) {
 
             applicationContext = new SpringApplicationBuilder()
-                    .sources(SpringBoot.class)
+                    .sources(ToDoAppApplication.class)
                     .run(args);
             classLoader = applicationContext.getClassLoader();
         }
     }
 
-    public static <T> Parent createContextFromResource(String resource) {
+    public static Parent createContextFromResource(String resource) {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(clazz -> applicationContext.getBean(clazz));
         InputStream resourceAsStream = classLoader.getResourceAsStream(resource);
         try {
-            return loader.load(resourceAsStream);
+             Parent parent =  loader.load(resourceAsStream);
+             parent.getStylesheets().add("awesome.css");
+             return parent;
         } catch (IOException e) {
             e.printStackTrace();
         }

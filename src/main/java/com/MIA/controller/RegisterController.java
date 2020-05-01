@@ -42,14 +42,13 @@ public class RegisterController {
     private UserRepository userRepository;
 
     @FXML
-    public void goBack(ActionEvent event) throws Exception {
+    public void goBack(ActionEvent event)  {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(getWelcomeScene());
     }
 
-    public Scene getWelcomeScene() throws Exception {
+    public Scene getWelcomeScene() {
         Parent root = ApplicationContextSingleton.createContextFromResource("welcome.fxml");
-        root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);
     }
 

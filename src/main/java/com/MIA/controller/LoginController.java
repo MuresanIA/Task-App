@@ -41,25 +41,24 @@ public class LoginController {
      UserRepository userRepository;
 
     @FXML
-    public void goBack(ActionEvent event) throws Exception {
+    public void goBack(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(getWelcomeScene());
     }
 
-    public Scene getWelcomeScene() throws Exception {
+    public Scene getWelcomeScene(){
         Parent root = ApplicationContextSingleton.createContextFromResource("welcome.fxml");
-        root.getStylesheets().add("awesome.css");
+
         return new Scene(root, 600, 600);
     }
 
-    public Scene getToDoScene() throws Exception {
+    public Scene getToDoScene() {
         Parent root = ApplicationContextSingleton.createContextFromResource("todo.fxml");
-        root.getStylesheets().add("awesome.css");
         return new Scene(root, 600, 600);
     }
 
     @FXML
-    private void loginUser(ActionEvent actionEvent) throws Exception {
+    private void loginUser(ActionEvent actionEvent) {
         clearErrors();
         if (txtFieldUsernameLogin.getText().equals("")) {
             emptyLoginField.setText("Username is empty!");
