@@ -38,7 +38,7 @@
             <Label fx:id="emptyTodoError" layoutX="52.0" layoutY="76.0" styleClass="warning"
                    text="Todo description cannot be empty!" visible="false"/>
 
-            <ScrollPane>
+            <ScrollPane fitToWidth="true">
                 <VBox fx:id="todosVBox"/>
             </ScrollPane>
 

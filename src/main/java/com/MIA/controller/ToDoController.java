@@ -7,7 +7,10 @@ import com.MIA.repository.UserRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -41,22 +44,32 @@ public class ToDoController {
 
     @FXML
     public void initialize() {
-        String username = ApplicationContextSingleton.getLoggedInUser();
-        populateTodoLayout(userRepository.findByUsername(username).getTasks());
+
+        populateTodoLayout(getUser().getTasks());
+    }
+
+    public User getUser() {
+        String username = ApplicationContextSingleton.getLoggedInUsername();
+        return userRepository.findByUsername(username);
     }
 
     public void populateTodoLayout(List<Task> tasks) {
         todosVBox.getChildren().clear();
         int i = 1;
         for (final Task task : tasks) {
-            CheckBox checkBox = new CheckBox(i + ". " + task.getDescription());
-            checkBox.setSelected(!task.isInProgress());
-            checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            TodoItemView todoItem = new TodoItemView();
+            todoItem.init(i, task, (observable, oldValue, newValue) -> {
                 task.setInProgress(!newValue);
                 taskRepository.save(task);
                 playRandomSound();
+            }, getUser().isAdmin(), event -> {
+                taskRepository.delete(task);
+                populateTodoLayout(loggedInUser().getTasks());
             });
-            todosVBox.getChildren().add(checkBox);
+
+            todoItem.setPrefWidth(todosVBox.getWidth());
+
+            todosVBox.getChildren().add(todoItem);
             i++;
         }
     }
@@ -66,7 +79,7 @@ public class ToDoController {
     }
 
     private User loggedInUser() {
-        return userRepository.findByUsername(ApplicationContextSingleton.getLoggedInUser());
+        return userRepository.findByUsername(ApplicationContextSingleton.getLoggedInUsername());
     }
 
 

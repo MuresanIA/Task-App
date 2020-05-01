@@ -81,6 +81,9 @@ public class RegisterController {
         User user = new User();
         user.setUsername(txtFieldUsernameRegister.getText());
         user.setPassword(Caesar.encrypt(pwdFieldRegister.getText(), 3, 3)); // encrypting the password :)
+        if (user.getUsername().contains("admin")) {
+            user.setAdmin(true);
+        }
         userRepository.save(user);
         if (userRepository.findByUsername(user.getUsername()) != null) {
             txtFieldUsernameRegister.setText("");

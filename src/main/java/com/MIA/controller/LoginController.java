@@ -78,7 +78,7 @@ public class LoginController {
             return;
         } else {
             loginSuccesful.setText("Login successful");
-            ApplicationContextSingleton.setLoggedInUser(user.getUsername());
+            ApplicationContextSingleton.setLoggedInUsername(user.getUsername());
         }
 
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
