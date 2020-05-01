@@ -27,8 +27,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "project_id")) // "foreign" entity -> project
     private List<Project> projects;
 
-    @OneToOne(mappedBy = "user")
-    private PendingUser pendingUser;
+    @Column(name = "isAdmin")
+    private boolean isAdmin;
+
+    @Column(name = "isConfirmed")
+    private boolean isConfirmed;
 
     public User() {
     }
@@ -63,6 +66,22 @@ public class User {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
     }
 }
 

@@ -79,6 +79,7 @@ public class ToDoController {
         task.setUser(currentUser);
         taskRepository.save(task);
 
+
         populateTodoLayout(loggedInUser().getTasks());
     }
 
@@ -88,6 +89,7 @@ public class ToDoController {
             emptyTodoError.setVisible(true);
         } else {
             addTodo(event, todoInputTextField.getText());
+            todoInputTextField.setText("");
         }
     }
 
