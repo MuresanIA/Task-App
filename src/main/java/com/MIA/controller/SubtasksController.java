@@ -1,9 +1,9 @@
 package com.MIA.controller;
 
+import com.MIA.model.SubTask;
 import com.MIA.model.Task;
-import com.MIA.model.User;
+import com.MIA.repository.SubTaskRepository;
 import com.MIA.repository.TaskRepository;
-import com.MIA.repository.UserRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,60 +26,67 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
+
 @Component
-@FxmlView("todo.fxml")
-public class ToDoController {
+@FxmlView("subtasks.fxml")
+public class SubtasksController {
 
     public MenuItem menuFileClose;
     public Button addTodoButton;
     public TextField todoInputTextField;
     public Label emptyTodoError;
     public VBox todosVBox;
+    public Button btnPreviousScene;
+
+    @Autowired
+    SubTaskRepository subTaskRepository;
 
     @Autowired
     TaskRepository taskRepository;
 
-    @Autowired
-    UserRepository userRepository;
-
     @FXML
     public void initialize() {
-        populateTodoLayout(getUser().getTasks());
+        populateTodoLayout(getTask().getSubtasks());
     }
 
-    public User getUser() {
-        String username = ApplicationContextSingleton.getLoggedInUsername();
-        return userRepository.findByUsername(username);
+    public void goBack(ActionEvent event) {
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageTheEventSourceNodeBelongs.setScene(getToDoScene());
+    }
+    public Scene getToDoScene() {
+        Parent root = ApplicationContextSingleton.createContextFromResource("todo.fxml");
+        return new Scene(root, 600, 600);
+    }
+    
+    public Task getTask() {
+        int taskId = ApplicationContextSingleton.getTaskId();
+        return taskRepository.findById(taskId);
     }
 
-    public void populateTodoLayout(List<Task> tasks) {
+    public void populateTodoLayout(List<SubTask> tasks) {
         todosVBox.getChildren().clear();
         int i = 1;
-        for (final Task task : tasks) {
+        for (final SubTask subTask : tasks) {
             TodoItemView todoItem = new TodoItemView();
 
-            todoItem.init(i, task, new TodoItemAction() {
+            todoItem.init(i, subTask, new TodoItemAction() {
                 @Override
                 public void checkBoxPressed(Boolean oldValue, Boolean newValue) {
-                    task.setInProgress(!newValue);
-                    taskRepository.save(task);
+                    subTask.setInProgress(!newValue);
+                    subTaskRepository.save(subTask);
                     playRandomSound();
                 }
 
                 @Override
                 public void onChangeUserButtonPressed() {
-                    taskRepository.delete(task);
-                    populateTodoLayout(loggedInUser().getTasks());
+
                 }
 
                 @Override
                 public void onShowSubtasksButtonPressed(ActionEvent event) {
-                    ApplicationContextSingleton.setTaskId(task.getId());
 
-                    Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stageTheEventSourceNodeBelongs.setScene(getSubtasksScene());
                 }
-            }, getUser().isAdmin());
+            });
 
             todoItem.setPrefWidth(todosVBox.getWidth());
 
@@ -88,31 +95,24 @@ public class ToDoController {
         }
     }
 
-    private Scene getSubtasksScene() {
-        Parent root = ApplicationContextSingleton.createContextFromResource("subtasks.fxml");
-        return new Scene(root, 600, 600);
-    }
+
 
     public void closeApp(ActionEvent actionEvent) {
         Platform.exit();
     }
 
-    private User loggedInUser() {
-        return userRepository.findByUsername(ApplicationContextSingleton.getLoggedInUsername());
-    }
-
 
     public void addTodo(ActionEvent actionEvent, String description) {
-        User currentUser = loggedInUser();
-        Task task = new Task();
-        task.setCreatedAt(new Date());
-        task.setDescription(description);
-        task.setInProgress(true);
-        task.setUser(currentUser);
-        taskRepository.save(task);
+        SubTask subTask = new SubTask();
+        subTask.setCreatedAt(new Date());
+        subTask.setDescription(description);
+        subTask.setInProgress(true);
+        subTask.setTask(getTask());
+
+        subTaskRepository.save(subTask);
 
 
-        populateTodoLayout(loggedInUser().getTasks());
+        populateTodoLayout(getTask().getSubtasks());
     }
 
     public void addToDo(ActionEvent event) {

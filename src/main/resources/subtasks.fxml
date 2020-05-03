@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="com.MIA.controller.SubtasksController">
+    <top>
+        <MenuBar prefHeight="7.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#closeApp" text="Close"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox fx:id="vBox">
+
+            <HBox>
+
+                <TextField fx:id="todoInputTextField" styleClass=" textFieldTheme" layoutY="32.0" prefHeight="20.0"
+                           prefWidth="302.0">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </TextField>
+
+                <Button fx:id="addTodoButton" styleClass="buttonTheme" mnemonicParsing="false" onAction="#addToDo"
+                        prefHeight="32" prefWidth="152" text="Add subtask">
+                    <HBox.margin>
+                        <Insets left="15.0"/>
+                    </HBox.margin>
+                </Button>
+                <VBox.margin>
+                    <Insets left="52.0" top="27.0"/>
+                </VBox.margin>
+            </HBox>
+
+            <Label fx:id="emptyTodoError" layoutX="52.0" layoutY="76.0" styleClass="warning"
+                   text="Todo description cannot be empty!" visible="false"/>
+
+            <ScrollPane fitToWidth="true">
+                <VBox fx:id="todosVBox"/>
+            </ScrollPane>
+
+            <Button fx:id="btnPreviousScene" styleClass="goBackButtonTheme"
+                    mnemonicParsing="false" prefWidth="135"
+                    prefHeight="32" onAction="#goBack"
+                    text="Go Back"/>
+        </VBox>
+
+    </center>
+
+</BorderPane>

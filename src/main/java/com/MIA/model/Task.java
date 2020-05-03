@@ -21,7 +21,7 @@ public class Task {
     private boolean inProgress;
     @ManyToOne
     private Project project;
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task",fetch = FetchType.EAGER)
     private List<SubTask> subtasks;
 
 
@@ -67,5 +67,13 @@ public class Task {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<SubTask> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(List<SubTask> subtasks) {
+        this.subtasks = subtasks;
     }
 }

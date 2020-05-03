@@ -16,6 +16,7 @@
     </left>
     <right>
         <Button fx:id="changeUserButton" styleClass="buttonTheme" text="Delete"/>
+        <Button fx:id="showSubtasks" styleClass="buttonTheme" text="Show subtasks"/>
     </right>
 
 </fx:root>

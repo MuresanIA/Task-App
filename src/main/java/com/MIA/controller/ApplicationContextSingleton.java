@@ -14,6 +14,7 @@ public class ApplicationContextSingleton {
     private static ConfigurableApplicationContext applicationContext;
     private static ClassLoader classLoader;
     private static String username;
+    private static int taskId;
 
 
     public static void initContext(String[] args) {
@@ -52,5 +53,13 @@ public class ApplicationContextSingleton {
 
     public static void setLoggedInUsername(String loggedInUserName) {
         username = loggedInUserName;
+    }
+
+    public static int getTaskId() {
+        return taskId;
+    }
+
+    public static void setTaskId(int taskId) {
+        ApplicationContextSingleton.taskId = taskId;
     }
 }
