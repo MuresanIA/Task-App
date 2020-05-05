@@ -16,8 +16,8 @@
         <CheckBox fx:id="checkbox"/>
     </left>
     <right>
-        <HBox>
-            <Button fx:id="changeUserButton" styleClass="buttonTheme" text="Delete"/>
+        <HBox spacing="10">
+            <Button fx:id="changeUserButton" styleClass="buttonTheme" text="Delete" />
             <Button fx:id="showSubtasks" styleClass="buttonTheme" text="Show subtasks"/>
         </HBox>
     </right>
