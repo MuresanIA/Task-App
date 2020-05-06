@@ -3,13 +3,15 @@ package com.MIA.controller;
 import com.MIA.ToDoAppApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import lombok.Data;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ApplicationContextSingleton {
+public @Data
+class ApplicationContextSingleton {
     //TODO: ADD THREADING TO CONNECTION
     private static ConfigurableApplicationContext applicationContext;
     private static ClassLoader classLoader;

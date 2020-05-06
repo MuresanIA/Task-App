@@ -1,11 +1,14 @@
 package com.MIA.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "project")
-public class Project {
+public @Data
+class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
