@@ -7,8 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "project")
-public @Data
-class Project {
+@Data
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

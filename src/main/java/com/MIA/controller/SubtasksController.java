@@ -29,6 +29,7 @@ import java.util.List;
 
 @Component
 @FxmlView("subtasks.fxml")
+
 public class SubtasksController {
 
     public MenuItem menuFileClose;
@@ -79,12 +80,13 @@ public class SubtasksController {
 
                 @Override
                 public void onChangeUserButtonPressed() {
-
+                    subTaskRepository.delete(subTask);
+                    populateTodoLayout(getTask().getSubtasks());
                 }
 
                 @Override
                 public void onShowSubtasksButtonPressed(ActionEvent event) {
-
+                //El hombre nada action
                 }
             });
 

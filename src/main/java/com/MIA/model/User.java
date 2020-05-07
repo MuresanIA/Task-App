@@ -8,8 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "user") // redundant, because table will be named implicitly user
-public @Data
-class User {
+@Data
+public class User {
 
     @Id // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO INCREMENT

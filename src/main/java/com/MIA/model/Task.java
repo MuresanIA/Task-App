@@ -8,8 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "task")
-public @Data
-class Task {
+@Data
+public class Task {
     @Id  // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO INCREMENT
     private int id;

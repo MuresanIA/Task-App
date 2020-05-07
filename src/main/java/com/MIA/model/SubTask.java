@@ -7,8 +7,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "subtask")
-public @Data
-class SubTask {
+@Data
+
+public class SubTask {
     @Id
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

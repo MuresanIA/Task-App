@@ -16,10 +16,12 @@ public class TodoItemView extends BorderPane {
     public CheckBox checkbox;
 
     @FXML
-    public Button changeUserButton;
+    public Button deleteButton;
 
     @FXML
     public Button showSubtasks;
+
+
 
     public TodoItemView() {
         FXMLLoader fxmlLoader = ApplicationContextSingleton.getFxmlLoader();
@@ -39,8 +41,9 @@ public class TodoItemView extends BorderPane {
         checkbox.setSelected(!task.isInProgress());
         checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> callback.checkBoxPressed(oldValue, newValue));
 
-        changeUserButton.setVisible(shouldDisplayButton);
-        changeUserButton.setOnAction((event) -> callback.onChangeUserButtonPressed());
+        deleteButton.setVisible(shouldDisplayButton);
+        deleteButton.setOnAction((event) -> callback.onChangeUserButtonPressed());
+
 
         showSubtasks.setOnAction(event -> callback.onShowSubtasksButtonPressed(event));
     }
@@ -49,5 +52,6 @@ public class TodoItemView extends BorderPane {
         checkbox.setSelected(!subTask.isInProgress());
         checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> callback.checkBoxPressed(oldValue, newValue));
         showSubtasks.setVisible(false);
+        deleteButton.setOnAction((event) -> callback.onChangeUserButtonPressed());
     }
 }

@@ -17,7 +17,7 @@
     </left>
     <right>
         <HBox spacing="10">
-            <Button fx:id="changeUserButton" styleClass="buttonTheme" text="Delete" />
+            <Button fx:id="deleteButton" styleClass="buttonTheme" text="Delete" />
             <Button fx:id="showSubtasks" styleClass="buttonTheme" text="Show subtasks"/>
         </HBox>
     </right>
