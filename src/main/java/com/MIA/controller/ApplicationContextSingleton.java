@@ -17,6 +17,7 @@ class ApplicationContextSingleton {
     private static ClassLoader classLoader;
     private static String username;
     private static int taskId;
+    private static int projectId;
 
 
     public static void initContext(String[] args) {
@@ -63,5 +64,13 @@ class ApplicationContextSingleton {
 
     public static void setTaskId(int taskId) {
         ApplicationContextSingleton.taskId = taskId;
+    }
+
+    public static int getProjectId() {
+        return projectId;
+    }
+
+    public static void setProjectId(int taskId) {
+        ApplicationContextSingleton.projectId = projectId;
     }
 }

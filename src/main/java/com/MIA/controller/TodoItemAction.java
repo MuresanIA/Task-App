@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 public interface TodoItemAction {
     void checkBoxPressed(Boolean oldValue, Boolean newValue);
 
-    void onChangeUserButtonPressed();
+    void onDeleteButtonPressed();
 
     void onShowSubtasksButtonPressed(ActionEvent event);
 }

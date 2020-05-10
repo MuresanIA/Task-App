@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "task")
 @Data
-public class Task {
+public class Task extends ListItem {
     @Id  // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO INCREMENT
     private int id;
@@ -19,9 +19,6 @@ public class Task {
     private User user;
     @Column(name = "created_at")
     private Date createdAt;
-    private String description;
-    @Column(name = "in_progress")
-    private boolean inProgress;
     @ManyToOne
     private Project project;
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)

@@ -35,6 +35,7 @@ public class ToDoController {
     public TextField todoInputTextField;
     public Label emptyTodoError;
     public VBox todosVBox;
+    public Button switchToProjects;
 
     @Autowired
     TaskRepository taskRepository;
@@ -56,7 +57,7 @@ public class ToDoController {
         todosVBox.getChildren().clear();
         int i = 1;
         for (final Task task : tasks) {
-            TodoItemView todoItem = new TodoItemView();
+            ListItemView todoItem = new ListItemView();
 
             todoItem.init(i, task, new TodoItemAction() {
                 @Override
@@ -67,7 +68,7 @@ public class ToDoController {
                 }
 
                 @Override
-                public void onChangeUserButtonPressed() {
+                public void onDeleteButtonPressed() {
                     taskRepository.delete(task);
                     populateTodoLayout(loggedInUser().getTasks());
                 }
@@ -130,5 +131,15 @@ public class ToDoController {
         Media sound = new Media(ssound);
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
+    }
+
+    public void switchToProjectsView(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(getProjectsScene());
+    }
+
+    private Scene getProjectsScene() {
+        Parent root = ApplicationContextSingleton.createContextFromResource("project.fxml");
+        return new Scene(root, 600, 600);
     }
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "subtask")
 @Data
 
-public class SubTask {
+public class SubTask extends ListItem {
     @Id
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +17,8 @@ public class SubTask {
     @Column(name = "subtask_id")
     private int id;
 
-    @Column(name = "in_progress")
-    private boolean inProgress;
-
     @Column(name = "created_at")
     private Date createdAt;
-
-    private String description;
 
     @ManyToOne
     private Task task;

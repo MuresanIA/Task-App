@@ -1,6 +1,6 @@
 package com.MIA.controller;
 
-import com.MIA.model.SubTask;
+import com.MIA.model.ListItem;
 import com.MIA.model.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class TodoItemView extends BorderPane {
+public class ListItemView extends BorderPane {
     @FXML
     public CheckBox checkbox;
 
@@ -22,8 +22,7 @@ public class TodoItemView extends BorderPane {
     public Button showSubtasks;
 
 
-
-    public TodoItemView() {
+    public ListItemView() {
         FXMLLoader fxmlLoader = ApplicationContextSingleton.getFxmlLoader();
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -36,22 +35,16 @@ public class TodoItemView extends BorderPane {
         }
     }
 
-    public void init(int index, Task task, TodoItemAction callback, boolean shouldDisplayButton) {
-        checkbox.setText(index + ". " + task.getDescription());
-        checkbox.setSelected(!task.isInProgress());
+    public void init(int index, ListItem listItem, TodoItemAction callback, boolean shouldDisplayButton) {
+        checkbox.setText(index + ". " + listItem.getDescription());
+        checkbox.setSelected(!listItem.isInProgress());
         checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> callback.checkBoxPressed(oldValue, newValue));
 
         deleteButton.setVisible(shouldDisplayButton);
-        deleteButton.setOnAction((event) -> callback.onChangeUserButtonPressed());
+        deleteButton.setOnAction((event) -> callback.onDeleteButtonPressed());
 
-
+        showSubtasks.setVisible(listItem instanceof Task);
         showSubtasks.setOnAction(event -> callback.onShowSubtasksButtonPressed(event));
     }
-    public void init(int index ,SubTask subTask, TodoItemAction callback){
-        checkbox.setText(index + ". " + subTask.getDescription());
-        checkbox.setSelected(!subTask.isInProgress());
-        checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> callback.checkBoxPressed(oldValue, newValue));
-        showSubtasks.setVisible(false);
-        deleteButton.setOnAction((event) -> callback.onChangeUserButtonPressed());
-    }
+
 }

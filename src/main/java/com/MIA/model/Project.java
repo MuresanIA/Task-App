@@ -3,12 +3,13 @@ package com.MIA.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "project")
 @Data
-public class Project {
+public class Project extends ListItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,9 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Task> tasks;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }
 

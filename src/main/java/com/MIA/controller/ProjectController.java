@@ -1,9 +1,7 @@
 package com.MIA.controller;
 
-import com.MIA.model.SubTask;
-import com.MIA.model.Task;
-import com.MIA.repository.SubTaskRepository;
-import com.MIA.repository.TaskRepository;
+import com.MIA.model.Project;
+import com.MIA.repository.ProjectRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,28 +24,26 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
-
 @Component
-@FxmlView("subtasks.fxml")
+@FxmlView("project.fxml")
 
-public class SubtasksController {
+public class ProjectController {
+
+
+    @Autowired
+    public ProjectRepository projectRepository;
 
     public MenuItem menuFileClose;
-    public Button addTodoButton;
-    public TextField todoInputTextField;
-    public Label emptyTodoError;
-    public VBox todosVBox;
+    public VBox vBox;
+    public TextField ProjectInputTextField;
+    public Button addProjectButton;
+    public Label emptyTxtFieldProjectError;
+    public VBox projectVBox;
     public Button btnPreviousScene;
-
-    @Autowired
-    SubTaskRepository subTaskRepository;
-
-    @Autowired
-    TaskRepository taskRepository;
 
     @FXML
     public void initialize() {
-        populateTodoLayout(getTask().getSubtasks());
+        populateProjectLayout(projectRepository.findAll());
     }
 
     public void goBack(ActionEvent event) {
@@ -60,29 +56,28 @@ public class SubtasksController {
         return new Scene(root, 600, 600);
     }
 
-    public Task getTask() {
-        int taskId = ApplicationContextSingleton.getTaskId();
-        return taskRepository.findById(taskId);
+    public Project getProject() {
+        int projectId = ApplicationContextSingleton.getProjectId();
+        return projectRepository.findById(projectId);
     }
 
-    public void populateTodoLayout(List<SubTask> tasks) {
-        todosVBox.getChildren().clear();
+    public void populateProjectLayout(List<Project> projects) {
+        projectVBox.getChildren().clear();
         int i = 1;
-        for (final SubTask subTask : tasks) {
+        for (final Project project : projects) {
             ListItemView todoItem = new ListItemView();
-
-            todoItem.init(i, subTask, new TodoItemAction() {
+            todoItem.init(i, project, new TodoItemAction() {
                 @Override
                 public void checkBoxPressed(Boolean oldValue, Boolean newValue) {
-                    subTask.setInProgress(!newValue);
-                    subTaskRepository.save(subTask);
+                    project.setInProgress(!newValue);
+                    projectRepository.save(project);
                     playRandomSound();
                 }
 
                 @Override
                 public void onDeleteButtonPressed() {
-                    subTaskRepository.delete(subTask);
-                    populateTodoLayout(getTask().getSubtasks());
+                    projectRepository.delete(project);
+                    populateProjectLayout(projectRepository.findAll());
                 }
 
                 @Override
@@ -91,9 +86,9 @@ public class SubtasksController {
                 }
             }, true);
 
-            todoItem.setPrefWidth(todosVBox.getWidth());
+            todoItem.setPrefWidth(projectVBox.getWidth());
 
-            todosVBox.getChildren().add(todoItem);
+            projectVBox.getChildren().add(todoItem);
             i++;
         }
     }
@@ -104,27 +99,16 @@ public class SubtasksController {
     }
 
 
-    public void addTodo(ActionEvent actionEvent, String description) {
-        SubTask subTask = new SubTask();
-        subTask.setCreatedAt(new Date());
-        subTask.setDescription(description);
-        subTask.setInProgress(true);
-        subTask.setTask(getTask());
+    public void addProject(ActionEvent actionEvent, String description) {
+        Project project = new Project();
+        project.setCreatedAt(new Date());
+        project.setDescription(description);
+        project.setInProgress(true);
 
-        subTaskRepository.save(subTask);
+        projectRepository.save(project);
 
 
-        populateTodoLayout(getTask().getSubtasks());
-    }
-
-    public void addToDo(ActionEvent event) {
-        emptyTodoError.setVisible(false);
-        if (todoInputTextField.getText().equals("")) {
-            emptyTodoError.setVisible(true);
-        } else {
-            addTodo(event, todoInputTextField.getText());
-            todoInputTextField.setText("");
-        }
+        populateProjectLayout(projectRepository.findAll());
     }
 
     private void playRandomSound() {
@@ -133,4 +117,23 @@ public class SubtasksController {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
+
+    public void addProject(ActionEvent event) {
+        emptyTxtFieldProjectError.setVisible(false);
+        if (emptyTxtFieldProjectError.getText().equals("")) {
+            emptyTxtFieldProjectError.setVisible(true);
+        } else {
+            addProject(event, ProjectInputTextField.getText());
+            emptyTxtFieldProjectError.setText("");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+

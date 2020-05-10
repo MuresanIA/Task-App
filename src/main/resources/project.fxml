@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml" fx:controller="com.MIA.controller.ToDoController">
+            xmlns:fx="http://javafx.com/fxml" fx:controller="com.MIA.controller.ProjectController">
     <top>
         <MenuBar prefHeight="7.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="File">
@@ -17,15 +17,15 @@
 
             <HBox>
 
-                <TextField fx:id="todoInputTextField" styleClass=" textFieldTheme" layoutY="32.0" prefHeight="20.0"
+                <TextField fx:id="ProjectInputTextField" styleClass=" textFieldTheme" layoutY="32.0" prefHeight="20.0"
                            prefWidth="302.0">
                     <HBox.margin>
                         <Insets/>
                     </HBox.margin>
                 </TextField>
 
-                <Button fx:id="addTodoButton" styleClass="buttonTheme" mnemonicParsing="false" onAction="#addToDo"
-                        prefHeight="32" prefWidth="152" text="Create Todo">
+                <Button fx:id="addProjectButton" styleClass="buttonTheme" mnemonicParsing="false" onAction="#addProject"
+                        prefHeight="32" prefWidth="152" text="Create Project">
                     <HBox.margin>
                         <Insets left="15.0"/>
                     </HBox.margin>
@@ -35,27 +35,18 @@
                 </VBox.margin>
             </HBox>
 
-            <Label fx:id="emptyTodoError" layoutX="52.0" layoutY="76.0" styleClass="warning"
-                   text="Todo description cannot be empty!" visible="false"/>
+            <Label fx:id="emptyTxtFieldProjectError" layoutX="52.0" layoutY="76.0" styleClass="warning"
+                   text="Project description cannot be empty!" visible="false"/>
 
             <ScrollPane fitToWidth="true">
-                <VBox fx:id="todosVBox"/>
+                <VBox fx:id="projectVBox"/>
             </ScrollPane>
-
+            <Button fx:id="btnPreviousScene" styleClass="goBackButtonTheme"
+                    mnemonicParsing="false" prefWidth="135"
+                    prefHeight="32" onAction="#goBack"
+                    text="Go Back"/>
 
         </VBox>
 
     </center>
-
-    <bottom>
-        <VBox>
-            <Button fx:id="switchToProjects" styleClass="buttonTheme" mnemonicParsing="false"
-                    onAction="#switchToProjectsView"
-                    prefHeight="32" prefWidth="152" text="Switch to projects">
-                <VBox.margin>
-                    <Insets left="30.0" bottom="30.0"/>
-                </VBox.margin>
-            </Button>
-        </VBox>
-    </bottom>
 </BorderPane>
