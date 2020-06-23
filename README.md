@@ -1,14 +1,12 @@
-# todo_app
-So far the program behaves as an ordinary todo_app.
+# Task App
 
-I'm looking forward to add a few more implementations regarding:
 
-CSS
 
-HTML
+The program allows the user to create a project and assign tasks to it.
 
-SpringData
+The program has an admin that creates projects and assigns tasks to it. It can assign tasks to users that work on the project.
 
-Angular
+Users can check the task once they have finished it.
 
-At the moment I have no idea where I want to go with the program. I will find out along the build process.
+
+
